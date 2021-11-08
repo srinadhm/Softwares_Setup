@@ -1,0 +1,53 @@
+1.Groovy Installation in Linux (centos,redhat,amazonlinux,amazonlinux2)
+
+1.Install Java 11 on Amazon Linux 
+Option 1: Install headless Amazon Corretto 11:
+sudo yum install java-11-amazon-corretto-headless
+Option 2: Install the full Amazon Corretto 11:
+sudo yum install java-11-amazon-corretto
+2.Check java version after installation 
+[root@ip-172-31-29-247 ~]# java -version
+openjdk version "11.0.13" 2021-10-19 LTS
+OpenJDK Runtime Environment Corretto-11.0.13.8.1 (build 11.0.13+8-LTS)
+OpenJDK 64-Bit Server VM Corretto-11.0.13.8.1 (build 11.0.13+8-LTS, mixed mode)
+3.Download the groovy url using wget command
+wget https://groovy.jfrog.io/artifactory/dist-release-local/groovy-zips/apache-groovy-binary-3.0.9.zip
+4.Unzip the downloaded zip
+unzip apache-groovy-binary-3.0.9.zip
+5.Set path for the groovy installation
+export PATH=$PATH:/root/groovy-3.0.9/bin
+6.Check groovy version
+[root@ip-172-31-29-247 ~]# groovy -version
+Groovy Version: 3.0.9 JVM: 11.0.13 Vendor: Amazon.com Inc. OS: Linux
+
+Sample For Loop Groovy Program
+vi ForLoop.groovy
+class ForLoop { 
+   static void main(String[] args) { 
+     /* int[] array = [0,1,2,3]; 
+		
+      for(int i in array) { 
+         println(i); 
+      } */
+
+      def list = [5, 6, 7, 8]
+
+      list.each { i ->
+        
+        println(i)
+      }
+      
+
+   } 
+}
+
+save and exit
+
+Compile and run the program
+[root@ip-172-31-29-247 ~]# groovy ForLoop.groovy
+5
+6
+7
+8
+
+2.Ansible Installation
