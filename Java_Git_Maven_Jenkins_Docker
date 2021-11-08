@@ -1,0 +1,409 @@
+1.Java Installation ( java 1.8)
+yum install java-1.8.0-openjdk java-1.8.0-openjdk-devel -y
+
+Run below commands to install Java 11 on Amazon Linux:
+
+sudo amazon-linux-extras install java-openjdk11 -y
+Option 1: Install headless Amazon Corretto 11:
+sudo yum install java-11-amazon-corretto-headless
+Option 2: Install the full Amazon Corretto 11:
+sudo yum install java-11-amazon-corretto
+
+java -version
+openjdk version "1.8.0_282"
+OpenJDK Runtime Environment (build 1.8.0_282-b08)
+OpenJDK 64-Bit Server VM (build 25.282-b08, mixed mode)
+
+alternatives --config java
+
+There are 2 programs which provide 'java'.
+
+  Selection    Command
+-----------------------------------------------
+*+ 1           java-1.8.0-openjdk.x86_64 (/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.302.b08-0.amzn2.0.1.x86_64/jre/bin/java)
+   2           java-11-openjdk.x86_64 (/usr/lib/jvm/java-11-openjdk-11.0.12.0.7-0.amzn2.0.2.x86_64/bin/java)
+
+Enter to keep the current selection[+], or type selection number: 2
+[root@ip-172-31-1-5 ~]# java -version
+openjdk version "11.0.12" 2021-07-20 LTS
+OpenJDK Runtime Environment 18.9 (build 11.0.12+7-LTS)
+OpenJDK 64-Bit Server VM 18.9 (build 11.0.12+7-LTS, mixed mode, sharing)
+
+2.Git Installation 
+yum install git -y 
+git --version
+git version 2.23.4
+
+3.Maven Installation 
+https://maven.apache.org/download.cgi
+
+(a)Download maven url using wget command maven 
+url https://dlcdn.apache.org/maven/maven-3/3.8.3/binaries/apache-maven-3.8.3-bin.tar.gz
+
+wget https://dlcdn.apache.org/maven/maven-3/3.8.3/binaries/apache-maven-3.8.3-bin.tar.gz
+(b) untar the maven downloaded tar 
+tar -xvzf apache-maven-3.8.3-bin.tar.gz
+(c) Set maven path where it is installed using export and add to path variable
+vi /etc/profile.d/maven.sh
+export MAVEN_HOME=/opt/apache-maven-3.8.3
+export PATH=$PATH:$MAVEN_HOME/bin
+(d) save the changes by source command 
+source /etc/profile.d/maven.sh
+(e) verify installation or maven version 
+mvn --version
+Apache Maven 3.8.3 (05c21c65bdfed0f71a2f2ada8b84da59348c4c5d)
+Maven home: /opt/apache-maven-3.8.3
+Java version: 1.8.0_282, vendor: Red Hat, Inc., runtime: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.282.b08-1.amzn2.0.1.x86_64/jre
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "4.14.231-173.361.amzn2.x86_64", arch: "amd64", family: "unix"
+
+(4)Gradle Installation
+(a)Download gradle  url using wget command 
+gradle url https://services.gradle.org/distributions/gradle-6.9-bin.zip
+
+wget https://services.gradle.org/distributions/gradle-6.9-bin.zip
+
+(b) untar the gralde downloaded tar 
+
+unzip gradle-6.9-bin.zip
+/opt/gradle-6.9/bin/gradle -v
+
+(c) Set gradle path where it is installed using export and add to path variable
+vi /etc/profile.d/gradle.sh
+export GRADLE_HOME=/opt/gradle-6.9
+export PATH=$PATH:$GRADLE_HOME/bin
+
+(d) save the changes by source command 
+source /etc/profile.d/gradle.sh
+
+(e) verify gradle installation or gradle version
+gradle -v 
+
+Gradle 6.9
+------------------------------------------------------------
+
+Build time:   2021-05-07 07:28:53 UTC
+Revision:     afe2e24ababc7b0213ccffff44970aa18035fc0e
+
+Kotlin:       1.4.20
+Groovy:       2.5.12
+Ant:          Apache Ant(TM) version 1.10.9 compiled on September 27 2020
+JVM:          1.8.0_282 (Red Hat, Inc. 25.282-b08)
+OS:           Linux 4.14.232-177.418.amzn2.x86_64 amd64
+
+5.Docker Installation
+
+(a)yum install docker -y 
+
+(b)docker --version
+Docker version 20.10.4, build d3cb89e
+Check whether docker is installed using rpm command 
+rpm -qa | grep docker
+docker-20.10.4-1.amzn2.x86_64
+(c)Check docker service status 
+service docker status (inactive means it is stopped )
+Redirecting to /bin/systemctl status docker.service
+● docker.service - Docker Application Container Engine
+   Loaded: loaded (/usr/lib/systemd/system/docker.service; disabled; vendor preset: disabled)
+   Active: inactive (dead)
+     Docs: https://docs.docker.com
+(d)Start the docker service 
+service docker start
+Redirecting to /bin/systemctl start docker.service
+check the docker serivce status after started 
+(e)service docker status
+Redirecting to /bin/systemctl status docker.service
+● docker.service - Docker Application Container Engine
+   Loaded: loaded (/usr/lib/systemd/system/docker.service; disabled; vendor preset: disabled)
+   Active: active (running) since Sat 2021-05-22 07:32:13 UTC; 26s ago
+     Docs: https://docs.docker.com
+  Process: 3999 ExecStartPre=/usr/libexec/docker/docker-setup-runtimes.sh (code=exited, status=0/SUCCESS)
+  Process: 3987 ExecStartPre=/bin/mkdir -p /run/docker (code=exited, status=0/SUCCESS)
+ Main PID: 4003 (dockerd)
+    Tasks: 7
+   Memory: 37.8M
+   CGroup: /system.slice/docker.service└─4003 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock --default-ulimit nofile=1024:4096
+ (f) Make docker auto-start
+sudo chkconfig docker on 
+           
+6.Docker Compose Installation 
+
+(a)Run this command to download the current stable release of Docker Compose:
+
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+(b) Apply executable permissions to the binary:
+sudo chmod +x /usr/local/bin/docker-compose
+
+Note: If the command docker-compose fails after installation, check your path. You can also create a symbolic link to /usr/bin or any other directory in your path.
+
+(c) sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+
+(d) docker-compose --version
+
+docker-compose version 1.29.2, build 5becea4c
+
+7.Jenkins Installation ( Java Prerequisite)
+
+https://wiki.jenkins.io/display/JENKINS//Installing+Jenkins+on+Red+Hat+distributions
+
+sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins.io/redhat/jenkins.repo
+sudo rpm --import http://pkg.jenkins.io/redhat/jenkins.io.key
+Install epel repo/distribution for daemonize package 
+sudo amazon-linux-extras install epel -y
+Enable epel 
+sudo yum-config-manager --enable epel
+Install jenkins 
+sudo yum install jenkins -y
+check jenkins is installed using rpm command 
+rpm -qa | grep jenkins
+jenkins-2.293-1.1.noarch
+check jenkins service status 
+service jenkins status
+jenkins.service - LSB: Jenkins Automation Server
+   Loaded: loaded (/etc/rc.d/init.d/jenkins; bad; vendor preset: disabled)
+   Active: inactive (dead)
+     Docs: man:systemd-sysv-generator(8)
+Start jenkins service 
+service jenkins start
+Starting jenkins (via systemctl):                          [  OK  ]
+Check jenkins service status again after starting 
+[root@ip-172-31-17-212 yum.repos.d]# service jenkins status
+● jenkins.service - LSB: Jenkins Automation Server
+   Loaded: loaded (/etc/rc.d/init.d/jenkins; bad; vendor preset: disabled)
+   Active: active (running) since Sat 2021-05-22 07:47:45 UTC; 2s ago
+     Docs: man:systemd-sysv-generator(8)
+  Process: 4958 ExecStart=/etc/rc.d/init.d/jenkins start (code=exited, status=0/SUCCESS)
+    Tasks: 11
+   Memory: 153.2M
+   CGroup: /system.slice/jenkins.service
+           └─5011 /etc/alternatives/java -Dcom.sun.akuma.Daemon=daemonized -Djava.awt.headless=true -DJENKINS_HOME=/var/lib/jenkins -jar /usr/lib/jenkins/jenkins.w...
+
+May 22 07:47:44 ip-172-31-17-212.us-east-2.compute.internal systemd[1]: Starting LSB: Jenkins Automation Server...
+May 22 07:47:44 ip-172-31-17-212.us-east-2.compute.internal runuser[4996]: pam_unix(runuser:session): session opened for user jenkins by (uid=0)
+May 22 07:47:45 ip-172-31-17-212.us-east-2.compute.internal runuser[4996]: pam_unix(runuser:session): session closed for user jenkins
+May 22 07:47:45 ip-172-31-17-212.us-east-2.compute.internal jenkins[4958]: Starting Jenkins [  OK  ]
+May 22 07:47:45 ip-172-31-17-212.us-east-2.compute.internal systemd[1]: Started LSB: Jenkins Automation Server.
+Check the jenkins is up and listening
+[root@ip-172-31-29-190 ~]# netstat -plunt | grep :8080
+tcp6       0      0 :::8080                 :::*                    LISTEN      2174/java
+
+Allow jenkins port number under firewall or aws security group
+serverip/ec2 instance ip :8080
+http://3.17.132.86:8080/
+
+8.Python Installation
+yum install python -y 
+
+[root@ip-172-31-29-190 ~]# python --version
+Python 2.7.18
+
+9.PIP Installation (preferred installer program) 
+
+amazon-linux-extras install epel
+yum -y install python-pip
+pip --version
+pip 20.2.2 from /usr/lib/python2.7/site-packages/pip (python 2.7) 
+
+10.Node JS Installation
+
+--- Install Node.js 14 ---
+curl -sL https://rpm.nodesource.com/setup_14.x | sudo bash -
+
+--- Install Node.js 12 ---
+curl -sL https://rpm.nodesource.com/setup_12.x | sudo bash -
+
+--- Install Node.js 10 ---
+curl -sL https://rpm.nodesource.com/setup_10.x | sudo bash -
+
+sudo yum install -y nodejs
+
+sudo yum -y install gcc-c++ make
+
+Node js version
+node -v
+v14.17.0
+Node Package Manager
+npm -v 
+6.14.13
+
+11.Nginx Installation 
+yum install nginx -y
+[root@ip-172-31-29-190 ~]# nginx -version
+nginx version: nginx/1.20.1
+[root@ip-172-31-29-190 ~]# rpm -qa | grep nginx
+nginx-filesystem-1.20.1-9.el7.noarch
+nginx-1.20.1-9.el7.x86_64
+Check nginx status 
+service nginx status
+Redirecting to /bin/systemctl status nginx.service
+● nginx.service - The nginx HTTP and reverse proxy server
+   Loaded: loaded (/usr/lib/systemd/system/nginx.service; disabled; vendor preset: disabled)
+   Active: inactive (dead)
+
+May 22 08:58:18 ip-172-31-17-212.us-east-2.compute.internal systemd[1]: Unit nginx.service cannot be reloaded because it is inactive.
+Start nginx service 
+[root@ip-172-31-17-212 ~]# service nginx start
+Redirecting to /bin/systemctl start nginx.service
+Check nginx service status after starting 
+[root@ip-172-31-17-212 ~]# service nginx status
+Redirecting to /bin/systemctl status nginx.service
+● nginx.service - The nginx HTTP and reverse proxy server
+   Loaded: loaded (/usr/lib/systemd/system/nginx.service; disabled; vendor preset: disabled)
+   Active: active (running) since Sat 2021-05-22 09:04:17 UTC; 5s ago
+  Process: 4649 ExecStart=/usr/sbin/nginx (code=exited, status=0/SUCCESS)
+  Process: 4639 ExecStartPre=/usr/sbin/nginx -t (code=exited, status=0/SUCCESS)
+  Process: 4622 ExecStartPre=/usr/bin/rm -f /run/nginx.pid (code=exited, status=0/SUCCESS)
+ Main PID: 4656 (nginx)
+    Tasks: 2
+   Memory: 7.3M
+   CGroup: /system.slice/nginx.service
+           ├─4656 nginx: master process /usr/sbin/nginx
+           └─4659 nginx: worker process
+
+12.Terraform Installation
+
+https://www.terraform.io/downloads.html
+mkdir Terraform 
+cd Terraform
+wget https://releases.hashicorp.com/terraform/0.15.4/terraform_0.15.4_linux_amd64.zip
+unzip terraform_0.15.4_linux_amd64.zip
+vi /etc/profile.d/terraform.sh
+export Terraform_HOME=/root/Terraform
+export PATH=$PATH:$Terraform_HOME
+source /etc/profile.d/terraform.sh
+terraform -v 
+Terraform v0.15.4
+on linux_amd64
+or 
+wget https://releases.hashicorp.com/terraform/0.15.4/terraform_0.15.4_linux_amd64.zip
+unzip terraform_0.15.4_linux_amd64.zip
+cp terraform /usr/bin/
+terraform -v 
+Terraform v0.15.4
+on linux_amd64
+
+13.Kafka Installation (quick start https://kafka.apache.org/quickstart)
+cd /opt
+https://kafka.apache.org/downloads
+
+STEP 1: GET KAFKA
+
+wget https://archive.apache.org/dist/kafka/2.4.1/kafka_2.12-2.4.1.tgz
+tar -xvf kafka_2.12-2.4.1.tgz
+cd kafka_2.12-2.4.1/
+Before Starting kafka we need to start zookeeper or STEP 2: START THE KAFKA ENVIRONMENT
+NOTE: Your local environment must have Java 8+ installed.
+
+Run the following commands in order to start all services in the correct order:
+
+nohup bin/zookeeper-server-start.sh config/zookeeper.properties &  jps
+4736 Jps
+3101 QuorumPeerMain
+2174 jenkins.war
+ps -aux | grep java
+After starting zookeeper we need to start kafka 
+nohup bin/kafka-server-start.sh config/server.properties & jps
+4736 Jps
+3496 Kafka
+3101 QuorumPeerMain
+3918 Kafka
+2174 jenkins.war
+after starting zookeeper and kafka check the ports are up and listening zookeeper (2181) kafka (9200)
+[root@ip-172-31-29-190 config]# netstat -plunt | grep :9092
+tcp6       0      0 :::9092                 :::*                    LISTEN      3918/java
+[root@ip-172-31-29-190 config]# netstat -plunt | grep :2181
+tcp6       0      0 :::2181                 :::*                    LISTEN      3101/java
+
+STEP 3: CREATE A TOPIC TO STORE YOUR EVENTS
+Kafka is a distributed event streaming platform that lets you read, write, store, and process events (also called records or messages in the documentation) across many machines.
+
+Example events are payment transactions, geolocation updates from mobile phones, shipping orders, sensor measurements from IoT devices or medical equipment, and much more. These events are organized and stored in topics. Very simplified, a topic is similar to a folder in a filesystem, and the events are the files in that folder.
+
+So before you can write your first events, you must create a topic. Open another terminal session and run:
+bin/kafka-topics.sh --create --topic quickstart-events --bootstrap-server localhost:9092
+
+All of Kafka's command line tools have additional options: run the kafka-topics.sh command without any arguments to display usage information. For example, it can also show you details such as the partition count of the new topic:
+
+bin/kafka-topics.sh --describe --topic quickstart-events --bootstrap-server localhost:9092
+
+Topic: quickstart-events        PartitionCount: 1       ReplicationFactor: 1    Configs: segment.bytes=1073741824
+        Topic: quickstart-events        Partition: 0    Leader: 0       Replicas: 0     Isr: 0
+
+
+STEP 4: WRITE SOME EVENTS INTO THE TOPIC
+A Kafka client communicates with the Kafka brokers via the network for writing (or reading) events. Once received, the brokers will store the events in a durable and fault-tolerant manner for as long as you need—even forever.
+
+Run the console producer client to write a few events into your topic. By default, each line you enter will result in a separate event being written to the topic.
+
+
+
+bin/kafka-console-producer.sh --topic quickstart-events --broker-list  localhost:9092
+hello
+how r u 
+can we discuss
+You can stop the producer client with Ctrl-C at any time.
+
+STEP 5: READ THE EVENTS
+
+Open another terminal session and run the console consumer client to read the events you just created:
+
+cd /opt/kafka_2.12-2.4.1
+[root@ip-172-31-43-244 kafka_2.12-2.4.1]# bin/kafka-console-consumer.sh --topic quickstart-events --from-beginning --bootstrap-server localhost:9092
+
+[root@ip-172-31-29-190 kafka_2.12-2.4.1]# bin/kafka-console-consumer.sh --topic quickstart-events --from-beginning --bootstrap-server localhost:9092
+hello
+how r u
+can we discuss
+^CProcessed a total of 3 messages
+
+14.Nexus Installation ( Java is Prerequisite)
+
+Nexus download url
+https://help.sonatype.com/repomanager3/download
+Other/Old Versions
+https://help.sonatype.com/repomanager3/download/download-archives---repository-manager-3
+
+https://devopscube.com/how-to-install-latest-sonatype-nexus-3-on-linux/
+
+15.Elastic Search ( Java is Prerequisite) 
+
+https://www.elastic.co/guide/en/elasticsearch/reference/current/rpm.html#install-rpm
+
+yum install java-1.8.0-openjdk java-1.8.0-openjdk-devel -y
+
+Download the rpm using wget command
+
+wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.12.1-x86_64.rpm
+
+Install elastic search using rpm command
+
+rpm -ivh elasticsearch-7.12.1-x86_64.rpm
+remove package using yum 
+
+yum remove elasticsearch-7.12.1-x86_64
+
+Switch to elastic search conf location and modify conf changes 
+cd /etc/elasticsearch
+vi elasticsearch.yml
+
+modify below properties accordingly
+1.cluster.name: my-application
+2.node.name: node-1
+3.network.host: 0.0.0.0
+4.http.port: 9200
+5.discovery.seed_hosts: ["172.31.36.201"](private ip)
+6.cluster.initial_master_nodes: ["172.31.36.201"](private ip)
+save changes and exit
+Start elastic search service 
+service elasticsearch start
+Check elastic search is up and running 
+netstat -plunt | grep :9200
+
+16.
+
+
+
+
+
+wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.12.1-x86_64.rpm
