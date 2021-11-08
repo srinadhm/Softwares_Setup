@@ -400,10 +400,3 @@ service elasticsearch start
 Check elastic search is up and running 
 netstat -plunt | grep :9200
 
-16.
-
-
-
-
-
-wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.12.1-x86_64.rpm
