@@ -1,6 +1,7 @@
 1.Java Installation ( java 1.8)
 yum install java-1.8.0-openjdk java-1.8.0-openjdk-devel -y
 
+
 Run below commands to install Java 11 on Amazon Linux:
 
 sudo amazon-linux-extras install java-openjdk11 -y
