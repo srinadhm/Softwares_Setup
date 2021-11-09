@@ -50,6 +50,9 @@ export MAVEN_HOME=/opt/apache-maven-3.8.3
 export PATH=$PATH:$MAVEN_HOME/bin
 (d) save the changes by source command 
 source /etc/profile.d/maven.sh
+
+or Instead of step c and d we can set path using export command 
+export PATH=$PATH:/opt/apache-maven-3.8.3/bin
 (e) verify installation or maven version 
 mvn --version
 Apache Maven 3.8.3 (05c21c65bdfed0f71a2f2ada8b84da59348c4c5d)
@@ -76,6 +79,8 @@ export PATH=$PATH:$GRADLE_HOME/bin
 
 (d) save the changes by source command 
 source /etc/profile.d/gradle.sh
+or Instead of step c and d we can set path using export command 
+export PATH=$PATH:/opt/gradle-6.9/bin
 
 (e) verify gradle installation or gradle version
 gradle -v 
@@ -151,7 +156,7 @@ https://wiki.jenkins.io/display/JENKINS//Installing+Jenkins+on+Red+Hat+distribut
 sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins.io/redhat/jenkins.repo
 sudo rpm --import http://pkg.jenkins.io/redhat/jenkins.io.key
 Install epel repo/distribution for daemonize package 
-sudo amazon-linux-extras install epel -y
+sudo amazon-linux-extras install epel -y or yum install epel-release -y
 Enable epel 
 sudo yum-config-manager --enable epel
 Install jenkins 
@@ -159,6 +164,9 @@ sudo yum install jenkins -y
 check jenkins is installed using rpm command 
 rpm -qa | grep jenkins
 jenkins-2.293-1.1.noarch
+Check jenkins status using ps command 
+ps -aux | grep jenkins
+root      4464  0.0  0.0 119420   864 pts/0    S+   09:54   0:00 grep --color=auto jenkins
 check jenkins service status 
 service jenkins status
 jenkins.service - LSB: Jenkins Automation Server
