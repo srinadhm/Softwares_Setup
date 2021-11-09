@@ -309,11 +309,11 @@ Build Info: {
     }
 }
 
-8.Cassandra Installation
+8.Cassandra Installation (Java is Prerequisite)
 
 https://bhargavamin.com/how-to-do/install-cassandra-on-amazon-ec2-centos/
 https://abwahed.medium.com/install-cassandra-on-aws-ec2-linux-instance-303de63e0f82
-
+https://www.globo.tech/learning-center/install-cassandra-centos-7/ working 
 
 vi /etc/yum.repos.d/datastax.repo
 [datastax] 
@@ -325,18 +325,60 @@ gpgcheck = 0
 Check whether the repo is added 
 yum repolist
 
-Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
-datastax                                                                                                      | 2.5 kB  00:00:00
-datastax/primary_db                                                                                           | 117 kB  00:00:00
-repo id                                                       repo name                                                        status
-amzn2-core/2/x86_64                                           Amazon Linux 2 core repository                                   26,801
-amzn2extra-docker/2/x86_64                                    Amazon Extras repo for docker                                        50
-amzn2extra-java-openjdk11/2/x86_64                            Amazon Extras repo for java-openjdk11                               134
-datastax                                                      DataStax Repo for Apache Cassandra                                  230
-mongodb-org-5.0                                               MongoDB Repository                                                   52
-repolist: 27,267
+[root@ip-172-31-18-115 ~]# yum repolist
+Updating Subscription Management repositories.
+Unable to read consumer identity
+
+This system is not registered with an entitlement server. You can use subscription-manager to register.
+
+repo id                                                         repo name
+datastax                                                        DataStax Repo for Apache Cassandra
+gitlab_gitlab-ce                                                gitlab_gitlab-ce
+gitlab_gitlab-ce-source                                         gitlab_gitlab-ce-source
+gitlab_gitlab-ee                                                gitlab_gitlab-ee
+gitlab_gitlab-ee-source                                         gitlab_gitlab-ee-source
+rhel-8-appstream-rhui-rpms                                      Red Hat Enterprise Linux 8 for x86_64 - AppStream from RHUI (RPMs)
+rhel-8-baseos-rhui-rpms                                         Red Hat Enterprise Linux 8 for x86_64 - BaseOS from RHUI (RPMs)
+rhui-client-config-server-8                                     Red Hat Update Infrastructure 3 Client Configuration Server 8
+[root@ip-172-31-18-115 ~]#
+
+#Install cassandra
+yum -y install dsc20
+#Check cassandra is installed using rpm,ps,netstat command
+[root@ip-172-31-18-115 ~]# rpm -qa | grep cassandra
+cassandra20-2.0.17-1.noarch
+[root@ip-172-31-18-115 ~]# ps -au | grep cassandra
+root       80336  0.0  0.0  12136  1156 pts/1    S+   19:56   0:00 grep --color=auto cassandra
+#Package for netstat 
+[root@ip-172-31-18-115 ~]# sudo dnf install net-tools
+[root@ip-172-31-18-115 ~]# netstat -plunt | grep :9160
+tcp        0      0 127.0.0.1:9160          0.0.0.0:*               LISTEN      79313/java
+
+systemctl enable cassandra.service
+systemctl start cassandra
+
+
+#Connect to cassandra cli
+[root@ip-172-31-18-115 ~]# cqlsh or cqlsh localhost 9160
+Connected to Test Cluster at localhost:9160.
+[cqlsh 4.1.1 | Cassandra 2.0.17 | CQL spec 3.1.1 | Thrift protocol 19.39.0]
+Use HELP for help.
+cqlsh> 
+
+#Commands to restart/stop cassandra
+systemctl restart cassandra
+systemctl stop cassandra
 
 9.GitLab CI-CD Setup/Installation
+
+****
+https://www.youtube.com/watch?v=Mt5O5wszPrg
+https://www.youtube.com/watch?v=ZyQYNVOhWIY&list=PLdsu0umqbb8PGnVWX3AV7zPI8VPRYtgOv
+https://www.youtube.com/watch?v=77nk8apY-jg
+
+https://www.devopshint.com/how-to-install-gitlab-runner-on-amazon-linux-2/
+http://www.notyourdadsit.com/blog/2020/10/3/gitlab-install-gitlab-runner-on-aws-linux-2
+https://docs.gitlab.com/runner/install/linux-manually.html
 
 [root@ip-172-31-18-115 ~]# history
     1  yum install wget -y
@@ -393,7 +435,6 @@ http://52.91.215.236/users/sign_in
 
 enter the reset username and password , it will display the home page of GitLab UI
 
- 
  
  
 
