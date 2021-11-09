@@ -309,7 +309,7 @@ Build Info: {
     }
 }
 
-8.Cassandra Installation (Java is Prerequisite)
+8.Cassandra Installation (Java is Prerequisite,Python Prerequisite)
 
 https://bhargavamin.com/how-to-do/install-cassandra-on-amazon-ec2-centos/
 https://abwahed.medium.com/install-cassandra-on-aws-ec2-linux-instance-303de63e0f82
