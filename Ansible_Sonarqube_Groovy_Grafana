@@ -51,3 +51,210 @@ Compile and run the program
 8
 
 2.Ansible Installation
+1.Prerequisite is python
+yum install python -y
+2.Install Ansinle in amazon linux
+amazon-linux-extras install ansible2 -y
+3.Check ansible version after installation
+[root@ip-172-31-89-165 elasticsearch]# ansible --version
+ansible 2.9.23
+  config file = /etc/ansible/ansible.cfg
+  configured module search path = [u'/root/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python2.7/site-packages/ansible
+  executable location = /bin/ansible
+  python version = 2.7.18 (default, Jun 10 2021, 00:11:02) [GCC 7.3.1 20180712 (Red Hat 7.3.1-13)]
+
+3.ELK Setup (Prerequisite Java )
+
+https://techviewleo.com/install-elastic-stack-elk-on-amazon-linux/
+https://www.elastic.co/guide/en/logstash/current/installing-logstash.html
+https://www.tecmint.com/fix-firewall-cmd-command-not-found-error/
+
+[root@ip-172-31-89-165 ~]# netstat -plunt | grep :5044
+tcp6       0      0 :::5044                 :::*                    LISTEN      1080/java
+[root@ip-172-31-89-165 ~]# netstat -plunt | grep :5601
+tcp        0      0 0.0.0.0:5601            0.0.0.0:*               LISTEN      1471/node
+[root@ip-172-31-89-165 ~]# netstat -plunt | grep :9200
+tcp6       0      0 :::9200                 :::*                    LISTEN      3870/java
+
+Firewall Package Install 
+sudo yum install firewalld -y
+Next, start firewalld and enable it to auto-start at system boot, then check its status.
+
+$ sudo systemctl start firewalld
+$ sudo systemctl enable firewalld
+$ sudo systemctl status firewalld
+
+Allow port numbers using firewall-cmd 
+sudo firewall-cmd --zone=public --add-port=5000/tcp --permanent
+sudo firewall-cmd --add-port=9200/tcp --permanent
+sudo firewall-cmd --add-port=5601/tcp --permanent
+sudo firewall-cmd --add-port=5044/tcp --permanent
+sudo firewall-cmd --reload
+
+
+
+4.Promotheus Installation
+
+https://codewizardly.com/prometheus-on-aws-ec2-part1/
+https://techviewleo.com/how-to-install-prometheus-on-amazon-linux/
+
+Promotheus Installation
+https://prometheus.io/download/
+Setup Prometheus Binaries
+Step 1: Update the yum package repositories.
+
+sudo yum update -y
+Step 2: Go to official Prometheus downloads page and get the download link for Linux binary.
+Step 3: Create a Prometheus user, required directories, and make prometheus user as the owner of those directories.
+sudo useradd --no-create-home --shell /bin/false prometheus
+sudo mkdir /etc/prometheus
+sudo mkdir /var/lib/prometheus
+sudo chown prometheus:prometheus /etc/prometheus
+sudo chown prometheus:prometheus /var/lib/prometheus
+
+Step 4: Download the source using curl, untar it and rename the extracted folder to prometheus-files.
+wget https://github.com/prometheus/prometheus/releases/download/v2.19.0/prometheus-2.19.0.linux-amd64.tar.gz
+tar xvfz prometheus-2.19.0.linux-amd64.tar.gz
+mv prometheus-2.19.0.linux-amd64 prometheus-files
+Step 5: Copy prometheus and promtool binary from prometheus-files folder to /usr/local/bin and change the ownership to prometheus user.
+sudo cp prometheus-files/prometheus /usr/local/bin/
+sudo cp prometheus-files/promtool /usr/local/bin/
+sudo chown prometheus:prometheus /usr/local/bin/prometheus
+sudo chown prometheus:prometheus /usr/local/bin/promtool
+
+Step 6: Move the consoles and console_libraries directories from prometheus-files to /etc/prometheus folder and change the ownership to prometheus user.
+
+sudo cp -r prometheus-files/consoles /etc/prometheus
+sudo cp -r prometheus-files/console_libraries /etc/prometheus
+sudo chown -R prometheus:prometheus /etc/prometheus/consoles
+sudo chown -R prometheus:prometheus /etc/prometheus/console_libraries
+
+Setup Prometheus Configuration
+All the prometheus configurations should be present in /etc/prometheus/prometheus.yml file.
+
+Step 1: Create the prometheus.yml file.
+
+sudo vi /etc/prometheus/prometheus.yml
+
+Step 2: Copy the following contents to the prometheus.yml file.
+
+global:
+  scrape_interval: 10s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['localhost:9090']
+	  
+global:
+  scrape_interval: 15s
+  external_labels:
+    monitor: 'prometheus'
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+Step 3: Change the ownership of the file to prometheus user.
+sudo chown prometheus:prometheus /etc/prometheus/prometheus.yml
+
+Setup Prometheus Service File
+
+Step 1: Create a prometheus service file.
+
+sudo vi /etc/systemd/system/prometheus.service
+
+Step 2: Copy the following content to the file.
+
+sudo chown prometheus:prometheus /etc/prometheus/prometheus.yml
+
+
+
+Setup Prometheus Service File
+Step 1: Create a prometheus service file.
+
+sudo vi /etc/systemd/system/prometheus.service
+
+Step 2: Copy the following content to the file.
+
+[Unit]
+Description=Prometheus
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=prometheus
+Group=prometheus
+Type=simple
+ExecStart=/usr/local/bin/prometheus \
+    --config.file /etc/prometheus/prometheus.yml \
+    --storage.tsdb.path /var/lib/prometheus/ \
+    --web.console.templates=/etc/prometheus/consoles \
+    --web.console.libraries=/etc/prometheus/console_libraries
+
+[Install]
+WantedBy=multi-user.target
+
+
+Step 3: Reload the systemd service to register the prometheus service and start the prometheus service.
+
+sudo systemctl daemon-reload
+sudo systemctl start prometheus
+
+Step-4 Check promotheus port is up and running 
+netstat -plunt | grep :9090
+tcp6       0      0 :::9090                 :::*                    LISTEN      5770/prometheus
+
+Step-5
+Check the prometheus service status using the following command.
+
+sudo systemctl status prometheus
+
+Access Prometheus Web UI
+Now you will be able to access the prometheus UI on 9090 port of the prometheus server.
+Sometimes if firewall is not allowed to access the site allow port number under the firewall
+
+sudo firewall-cmd --add-port=9090/tcp --permanent (9090 promotheus port number )
+sudo firewall-cmd --reload
+
+
+http:ec2serverip:9090/graph
+http://54.164.90.254:9090/graph
+Right now we have just configured prometheus. You need to register the target in the prometheus.yml file to get the metrics from the source systems.
+
+5.Grafana Installation
+
+https://www.radishlogic.com/aws/ec2/how-to-install-grafana-on-ec2-amazon-linux-2/
+https://techviewleo.com/how-to-install-grafana-on-amazon-linux/
+https://www.tecmint.com/fix-firewall-cmd-command-not-found-error/
+
+1. Update system
+ sudo apt-get update
+ sudo apt-get upgrade
+2. Add Grafana 6 APT repository
+   Add Grafana gpg key which allows you to install signed packages.
+ sudo apt-get install -y gnupg2 curl
+ curl https://packages.grafana.com/gpg.key | sudo apt-key add -
+   Then install Grafana APT repository:
+ sudo add-apt-repository "deb https://packages.grafana.com/oss/deb stable main"
+   Once the repository is added, proceed to update your Apt repositories and install Grafana
+ sudo apt-get update
+ sudo apt-get -y install grafana
+   Start grafana service
+ sudo systemctl status grafana-server
+ netstat -plunt | grep :3000
+ tcp6       0      0 :::3000                 :::*                    LISTEN      6224/grafana-server
+ sudo systemctl start grafana-server
+ sudo systemctl enable grafana-server
+Now open your browser and enter server IP address and port 3000
+http://ec2ip:3000
+Default logins are:
+ Username: admin
+ Password: admin
+ 
+ 6.
+
+
