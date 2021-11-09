@@ -336,6 +336,62 @@ datastax                                                      DataStax Repo for 
 mongodb-org-5.0                                               MongoDB Repository                                                   52
 repolist: 27,267
 
+9.GitLab CI-CD Setup/Installation
+
+[root@ip-172-31-18-115 ~]# history
+    1  yum install wget -y
+    2  clear
+    3  yum install curl postfix ca-certificates openssh-server openssh-clients
+    4  clear
+    5  yum install policy core utils
+    6  yum install policycoreutils -y
+    7  systemctl enable sshd
+    8  systemctl start  sshd
+    9  clear
+   10  systemctl enable postfix
+   11  systemctl start  postfix
+   12  yum install firewalld
+   13  clear
+   14  systemctl enable firewalld
+   15  systemctl start firewalld
+   16  firewall-cmd --permanent --add-service=http
+   17  systemctl reload firewalld
+   18  curl -sS  https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.rpm.sh | sudo bash
+   19  yum install gitlab-ee -y
+       rpm -qa | grep gitlab-ee
+       gitlab-ee-14.4.2-ee.0.el8.x86_64
+       ps -ax | grep gitlab-ee
+       15698 ?        Ss     0:00 gpg-agent --homedir /var/cache/dnf/gitlab_gitlab-ee-source-dec25c9057808fd2/pubring --use-standard-socket --daemon
+       16208 ?        Ss     0:00 gpg-agent --homedir /var/cache/dnf/gitlab_gitlab-ee-06493dc3ae677d64/pubring --use-standard-socket --daemon
+       21030 pts/1    S+     0:00 grep --color=auto gitlab-ee
+       sudo gitlab-ctl status
+       run: alertmanager: (pid 18792) 722s; run: log: (pid 18265) 818s
+run: gitaly: (pid 18814) 721s; run: log: (pid 17308) 947s
+run: gitlab-exporter: (pid 18762) 724s; run: log: (pid 18165) 835s
+run: gitlab-workhorse: (pid 18746) 725s; run: log: (pid 17976) 854s
+run: grafana: (pid 18823) 721s; run: log: (pid 18610) 761s
+run: logrotate: (pid 17190) 962s; run: log: (pid 17202) 960s
+run: nginx: (pid 18022) 850s; run: log: (pid 18038) 847s
+run: node-exporter: (pid 18756) 725s; run: log: (pid 18099) 841s
+run: postgres-exporter: (pid 18803) 721s; run: log: (pid 18420) 812s
+run: postgresql: (pid 17461) 939s; run: log: (pid 17481) 938s
+run: prometheus: (pid 18771) 724s; run: log: (pid 18230) 822s
+run: puma: (pid 17788) 868s; run: log: (pid 17795) 867s
+run: redis: (pid 17239) 956s; run: log: (pid 17249) 955s
+run: redis-exporter: (pid 18764) 724s; run: log: (pid 18197) 829s
+run: sidekiq: (pid 17893) 862s; run: log: (pid 17923) 861s
+
+#Reset Password for logging to GitLab
+https://docs.gitlab.com/ee/security/reset_user_password.html
+sudo gitlab-rake "gitlab:password:reset"
+
+#After changing password reconfigure gitlab-ctl
+gitlab-ctl reconfigure
+
+Allow the traffic in security group and find the Ip address of the server and test in the browser
+http://52.91.215.236/users/sign_in
+
+enter the reset username and password , it will display the home page of GitLab UI
 
  
  
