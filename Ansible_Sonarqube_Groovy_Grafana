@@ -255,6 +255,90 @@ Default logins are:
  Username: admin
  Password: admin
  
- 6.
+ 6.Tomcat Installation (Java Pre requisite)
+ 
+ https://techviewleo.com/install-tomcat-on-amazon-linux/
+ yum install firewalld
+ systemctl  enable firewalld
+ systemctl  start firewalld
+ systemctl  status firewalld
+ 
+ netstat -plunt | grep :8080
+ tcp6       0      0 :::8080                 :::*                    LISTEN      7008/java
+ 
+ Allow 8080 port number in Security group
+ 
+ http://3.82.232.144:8080/
+
+7.Mongodb Installation
+
+https://docs.mongodb.com/manual/tutorial/install-mongodb-on-amazon/
+https://devopsmyway.com/install-mongodb-on-ec2/
+
+systemctl start mongodb-org
+
+After starting Mongodb vefiry installation
+
+[root@ip-172-31-92-7 ~]# rpm -qa | grep mongodb-org
+mongodb-org-shell-5.0.3-1.amzn2.x86_64
+mongodb-org-database-tools-extra-5.0.3-1.amzn2.x86_64
+mongodb-org-tools-5.0.3-1.amzn2.x86_64
+mongodb-org-server-5.0.3-1.amzn2.x86_64
+mongodb-org-5.0.3-1.amzn2.x86_64
+mongodb-org-mongos-5.0.3-1.amzn2.x86_64
+mongodb-org-database-5.0.3-1.amzn2.x86_64
+[root@ip-172-31-92-7 ~]# netstat -plunt | grep :27017
+tcp        0      0 127.0.0.1:27017         0.0.0.0:*               LISTEN      7552/mongod
+[root@ip-172-31-92-7 ~]# ps -ef | grep mongod
+mongod    7552     1  0 06:31 ?        00:00:01 /usr/bin/mongod -f /etc/mongod.conf
+root      7606  3505  0 06:33 pts/0    00:00:00 grep --color=auto mongod
+
+Mongodb version
+[root@ip-172-31-92-7 ~]# mongo --version
+MongoDB shell version v5.0.3
+Build Info: {
+    "version": "5.0.3",
+    "gitVersion": "657fea5a61a74d7a79df7aff8e4bcf0bc742b748",
+    "openSSLVersion": "OpenSSL 1.0.2k-fips  26 Jan 2017",
+    "modules": [],
+    "allocator": "tcmalloc",
+    "environment": {
+        "distmod": "amazon2",
+        "distarch": "x86_64",
+        "target_arch": "x86_64"
+    }
+}
+
+8.Cassandra Installation
+
+https://bhargavamin.com/how-to-do/install-cassandra-on-amazon-ec2-centos/
+https://abwahed.medium.com/install-cassandra-on-aws-ec2-linux-instance-303de63e0f82
+
+
+vi /etc/yum.repos.d/datastax.repo
+[datastax] 
+name = DataStax Repo for Apache Cassandra
+baseurl = http://rpm.datastax.com/community
+enabled = 1
+gpgcheck = 0
+
+Check whether the repo is added 
+yum repolist
+
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+datastax                                                                                                      | 2.5 kB  00:00:00
+datastax/primary_db                                                                                           | 117 kB  00:00:00
+repo id                                                       repo name                                                        status
+amzn2-core/2/x86_64                                           Amazon Linux 2 core repository                                   26,801
+amzn2extra-docker/2/x86_64                                    Amazon Extras repo for docker                                        50
+amzn2extra-java-openjdk11/2/x86_64                            Amazon Extras repo for java-openjdk11                               134
+datastax                                                      DataStax Repo for Apache Cassandra                                  230
+mongodb-org-5.0                                               MongoDB Repository                                                   52
+repolist: 27,267
+
+
+ 
+ 
+ 
 
 
