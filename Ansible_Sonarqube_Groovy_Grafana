@@ -435,7 +435,56 @@ http://52.91.215.236/users/sign_in
 
 enter the reset username and password , it will display the home page of GitLab UI
 
+ 10.Sonarqube Installation (Java is Prerequisite)
  
+ sonarqube 7 supports java 8
+ sonarqube 8 supports java 11
+ It is not recommended to run sonarqube as root user, because sonarqube internally uses elastic search
+ we need to change permission/ownership  for sonarqube folder and run_as_user in sonar.sh file 
  
+ Recommended 
+ Instance type t2.medium and need 2 VCPU's
+ Allow port numbers in Security group
+ Sonarqube 9000
+ Nexus 8081 
+ 
+ 1.Install Java 11 on Amazon Linux 
+Option 1: Install headless Amazon Corretto 11:
+sudo yum install java-11-amazon-corretto-headless -y
+
+https://www.sonarqube.org/downloads/
+
+https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-9.1.0.47736.zip
+
+cd /opt 
+
+wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-9.1.0.47736.zip
+
+unzip sonarqube-9.1.0.47736.zip
+
+[root@ip-172-31-30-43 ~]# getfacl sonarqube-9.1.0.47736
+# file: sonarqube-9.1.0.47736
+# owner: root
+# group: root
+user::rwx
+group::r-x
+other::r-x
+
+chown ec2-user:ec2-user sonarqube-9.1.0.47736 -R
+
+[root@ip-172-31-30-43 ~]# getfacl sonarqube-9.1.0.47736
+# file: sonarqube-9.1.0.47736
+# owner: ec2-user
+# group: ec2-user
+user::rwx
+group::r-x
+other::r-x
+
+Switch to bin directory and select respective operation system and change run_as_user as ec2-user in sonar.sh file
+
+/opt/sonarqube-9.1.0.47736/bin/linux-x86-64
+
+
+
 
 
