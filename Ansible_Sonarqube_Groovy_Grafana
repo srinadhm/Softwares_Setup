@@ -462,6 +462,8 @@ wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-9.1.0.477
 
 unzip sonarqube-9.1.0.47736.zip
 
+# Before changing the ownership check the permissions for sonarqube folder
+
 [root@ip-172-31-30-43 ~]# getfacl sonarqube-9.1.0.47736
 # file: sonarqube-9.1.0.47736
 # owner: root
@@ -470,6 +472,7 @@ user::rwx
 group::r-x
 other::r-x
 
+# Change ownership for sonarqube folder from root user to ec2-user
 chown ec2-user:ec2-user sonarqube-9.1.0.47736 -R
 
 [root@ip-172-31-30-43 ~]# getfacl sonarqube-9.1.0.47736
@@ -482,7 +485,32 @@ other::r-x
 
 Switch to bin directory and select respective operation system and change run_as_user as ec2-user in sonar.sh file
 
-/opt/sonarqube-9.1.0.47736/bin/linux-x86-64
+For linux : /opt/sonarqube-9.1.0.47736/bin/linux-x86-64 
+For windows : /opt/sonarqube-9.1.0.47736/bin/windows-x86-64 
+
+Change the #RUN_AS_USER value to ec2-user in sonar.sh file
+vi sonar.sh 
+RUN_AS_USER=ec2-user
+
+save changes and exit
+
+#Run the sonar sever
+sh sonar.sh <start/stop/restart/status/dump/force-stop>
+
+sh sonar.sh start 
+
+Open and browser and login to sonar server with server Ip
+
+Ip:9000
+
+http://54.204.94.224:9000/
+
+default credentials
+username : admin
+password : admin
+       
+
+
 
 
 
