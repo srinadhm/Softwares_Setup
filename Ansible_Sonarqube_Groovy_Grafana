@@ -499,6 +499,12 @@ sh sonar.sh <start/stop/restart/status/dump/force-stop>
 
 sh sonar.sh start 
 
+After starting check sonarqube is up and running
+
+[root@ip-172-31-21-45 linux-x86-64]# netstat -plunt | grep :9000
+tcp6       0      0 :::9000                 :::*                    LISTEN      3993/java
+
+
 Open and browser and login to sonar server with server Ip
 
 Ip:9000
@@ -508,7 +514,15 @@ http://54.204.94.224:9000/
 default credentials
 username : admin
 password : admin
-       
+
+To check code quality or analyze the project we need to generate sonar token
+
+My Account ---> Security ---> Generate Tokens <enter token_name> --> Generate
+
+copy the token otherwise it will disappeared
+
+
+
 
 
 
