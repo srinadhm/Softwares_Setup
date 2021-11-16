@@ -498,6 +498,8 @@ save changes and exit
 sh sonar.sh <start/stop/restart/status/dump/force-stop>
 
 sh sonar.sh start 
+sh sonar.sh stop ( stop sonar server)
+
 
 After starting check sonarqube is up and running
 
@@ -598,6 +600,82 @@ Sometimes if the develop the code with System.out for printing data the sonqrqub
 https://mkyong.com/spring-boot/spring-boot-slf4j-logging-example/
 
 After making code changes we need to build the project to reflect the changes and followed by sonarqube command
+
+Maven Integration with Nexus
+
+https://devopscube.com/how-to-install-latest-sonatype-nexus-3-on-linux/
+1.Install Nexus and add 8081 port number in security group
+2.Start nexus and open in web using server ip and port number
+http://54.204.94.224:8081/
+3.Sign to nexus server
+default credentials
+username: admin
+password can be found in the location : /opt/sonatype-work/nexus3/admin.password
+fc7de13a-20ce-493d-8c3d-b31f552a9f38
+Prompt for reset new password and Disable anonymous access
+setup is completed for nexus
+
+Now we need to deploy jar/war from target directory after maven build to nexus using maven deploy command
+
+Build got failed because of maven doesnt know the location maven 
+
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-deploy-plugin:2.8.2:deploy (default-deploy) on project 
+gs-spring-boot: Deployment failed: repository element was not specified in the POM inside distributionManagement element or in 
+-DaltDeploymentRepository=id::layout::url parameter -> [Help 1]
+
+Add below properties or url in maven to deploy to nexus
+1.We need to mention where is nexus repository located 
+2.We need to mention snapshot respository url ( deploy application jar/war to dev,qa envs)
+if version is with snapshot it will go to nexus snapshot repository 
+3.We need to mention release repository url  (deploy application jar/war to perf,pre-prod and prod envs)
+if version is without snapshot it will go to nexus release repository 
+<distributionManagement>
+   <snapshotRepository>
+      <id>maven-snapshots</id>
+      <url>http://54.204.94.224:8081/repository/maven-snapshots/</url>
+   </snapshotRepository>
+   <repository>
+      <id>maven-releases</id>
+      <url>http://54.204.94.224:8081/repository/maven-releases/</url>
+   </repository>
+</distributionManagement>
+
+4.We need to add username and password for nexus in maven /opt/apache-maven-3.8.3/conf/settings.xml
+
+5.Id element present in distribution management for snapshot and release repositories 
+
+vi settings.xml
+----------
+    <server>
+      <id>maven-snapshots</id>
+      <username>admin</username>
+      <password>vamsi</password>
+    </server>
+	<server>
+      <id>maven-releases</id>
+      <username>admin</username>
+      <password>vamsi</password>
+    </server>
+   
+   6.mvn deploy
+   
+   jar is uploaded to release repository
+   
+   http://54.204.94.224:8081/#browse/browse:maven-releases
+   
+   http://54.204.94.224:8081/service/rest/repository/browse/maven-releases/org/springframework/gs-spring-boot/0.1.0/
+   
+   
+Name	Last Modified	Size	Description
+Parent Directory
+gs-spring-boot-0.1.0.jar	Tue Nov 16 08:18:34 UTC 2021	16225078	
+gs-spring-boot-0.1.0.jar.md5	Tue Nov 16 08:18:35 UTC 2021	32	
+gs-spring-boot-0.1.0.jar.sha1	Tue Nov 16 08:18:35 UTC 2021	40	
+gs-spring-boot-0.1.0.pom	Tue Nov 16 08:18:35 UTC 2021	2067	
+gs-spring-boot-0.1.0.pom.md5	Tue Nov 16 08:18:35 UTC 2021	32	
+gs-spring-boot-0.1.0.pom.sha1	Tue Nov 16 08:18:35 UTC 2021	40	
+
+
 
 
 
