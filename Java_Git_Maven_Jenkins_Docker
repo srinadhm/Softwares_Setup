@@ -151,6 +151,7 @@ docker-compose version 1.29.2, build 5becea4c
 
 7.Jenkins Installation ( Java Prerequisite)
 
+Jenkins port number : 8080
 https://wiki.jenkins.io/display/JENKINS//Installing+Jenkins+on+Red+Hat+distributions
 
 sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins.io/redhat/jenkins.repo
@@ -293,6 +294,10 @@ Terraform v0.15.4
 on linux_amd64
 
 13.Kafka Installation (quick start https://kafka.apache.org/quickstart)
+
+Kafka port number : 9092
+Zookeeper port number : 2181
+
 cd /opt
 https://kafka.apache.org/downloads
 
@@ -318,7 +323,7 @@ nohup bin/kafka-server-start.sh config/server.properties & jps
 3101 QuorumPeerMain
 3918 Kafka
 2174 jenkins.war
-after starting zookeeper and kafka check the ports are up and listening zookeeper (2181) kafka (9200)
+after starting zookeeper and kafka check the ports are up and listening zookeeper (2181) kafka (9092)
 [root@ip-172-31-29-190 config]# netstat -plunt | grep :9092
 tcp6       0      0 :::9092                 :::*                    LISTEN      3918/java
 [root@ip-172-31-29-190 config]# netstat -plunt | grep :2181
@@ -367,6 +372,7 @@ can we discuss
 ^CProcessed a total of 3 messages
 
 14.Nexus Installation ( Java is Prerequisite)
+Nexus port number : 8081
 
 Nexus download url
 https://help.sonatype.com/repomanager3/download
@@ -376,6 +382,8 @@ https://help.sonatype.com/repomanager3/download/download-archives---repository-m
 https://devopscube.com/how-to-install-latest-sonatype-nexus-3-on-linux/
 
 15.Elastic Search ( Java is Prerequisite) 
+
+Elastic search port number : 9200
 
 https://www.elastic.co/guide/en/elasticsearch/reference/current/rpm.html#install-rpm
 
