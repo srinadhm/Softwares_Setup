@@ -659,8 +659,12 @@ vi settings.xml
    
    6.mvn deploy
    
-   jar is uploaded to release repository
+   jar is uploaded to release repository based on version 
    
+    <groupId>org.springframework</groupId>
+    <artifactId>gs-spring-boot</artifactId>
+    <version>0.1.0</version>
+
    http://54.204.94.224:8081/#browse/browse:maven-releases
    
    http://54.204.94.224:8081/service/rest/repository/browse/maven-releases/org/springframework/gs-spring-boot/0.1.0/
@@ -675,14 +679,83 @@ gs-spring-boot-0.1.0.pom	Tue Nov 16 08:18:35 UTC 2021	2067
 gs-spring-boot-0.1.0.pom.md5	Tue Nov 16 08:18:35 UTC 2021	32	
 gs-spring-boot-0.1.0.pom.sha1	Tue Nov 16 08:18:35 UTC 2021	40	
 
+if we update the version 0.2.0 new version will be there with 0.2.0 
+
+ <version>0.2.0</version>
+ 
+http://54.204.94.224:8081/service/rest/repository/browse/maven-releases/org/springframework/gs-spring-boot/
+Name	Last Modified	Size	Description
+Parent Directory
+0.1.0	 	 	
+0.2.0	 	 	
+maven-metadata.xml	Tue Nov 16 08:28:46 UTC 2021	344	
+maven-metadata.xml.md5	Tue Nov 16 08:28:46 UTC 2021	32	
+maven-metadata.xml.sha1	Tue Nov 16 08:28:46 UTC 2021	40	
+
+7.If the project has snapshot version it will deploy to snapshot repository
+
+<version>0.2.0-SNAPSHOT</version>
 
 
+[root@ip-172-31-21-45 springboothello-CICD] # mvn deploy
+
+[INFO] --- maven-deploy-plugin:2.8.2:deploy (default-deploy) @ gs-spring-boot ---
+Downloading from maven-snapshots: http://54.204.94.224:8081/repository/maven-snapshots/org/springframework/gs-spring-boot/0.2.0-SNAPSHOT/maven-metadata.xml
+Uploading to maven-snapshots: http://54.204.94.224:8081/repository/maven-snapshots/org/springframework/gs-spring-boot/0.2.0-SNAPSHOT/gs-spring-boot-0.2.0-20211116.083505-1.jar
+Uploaded to maven-snapshots: http://54.204.94.224:8081/repository/maven-snapshots/org/springframework/gs-spring-boot/0.2.0-SNAPSHOT/gs-spring-boot-0.2.0-20211116.083505-1.jar (16 MB at 17 MB/s)
+Uploading to maven-snapshots: http://54.204.94.224:8081/repository/maven-snapshots/org/springframework/gs-spring-boot/0.2.0-SNAPSHOT/gs-spring-boot-0.2.0-20211116.083505-1.pom
+Uploaded to maven-snapshots: http://54.204.94.224:8081/repository/maven-snapshots/org/springframework/gs-spring-boot/0.2.0-SNAPSHOT/gs-spring-boot-0.2.0-20211116.083505-1.pom (2.1 kB at 21 kB/s)
+Downloading from maven-snapshots: http://54.204.94.224:8081/repository/maven-snapshots/org/springframework/gs-spring-boot/maven-metadata.xml
+Uploading to maven-snapshots: http://54.204.94.224:8081/repository/maven-snapshots/org/springframework/gs-spring-boot/0.2.0-SNAPSHOT/maven-metadata.xml
+Uploaded to maven-snapshots: http://54.204.94.224:8081/repository/maven-snapshots/org/springframework/gs-spring-boot/0.2.0-SNAPSHOT/maven-metadata.xml (783 B at 12 kB/s)
+Uploading to maven-snapshots: http://54.204.94.224:8081/repository/maven-snapshots/org/springframework/gs-spring-boot/maven-metadata.xml
+Uploaded to maven-snapshots: http://54.204.94.224:8081/repository/maven-snapshots/org/springframework/gs-spring-boot/maven-metadata.xml (293 B at 7.0 kB/s)
+
+Snapshot will be uploaded to snapshot repository
+
+http://54.204.94.224:8081/service/rest/repository/browse/maven-snapshots/org/springframework/gs-spring-boot/
+
+When we will do build it will generate snapshot version based on build 
+
+http://54.204.94.224:8081/service/rest/repository/browse/maven-snapshots/org/springframework/gs-spring-boot/0.2.0-SNAPSHOT/0.2.0-20211116.083505-1/
+
+Index of /org/springframework/gs-spring-boot/0.2.0-SNAPSHOT/0.2.0-20211116.083505-1
+Name	Last Modified	Size	Description
+Parent Directory
+gs-spring-boot-0.2.0-20211116.083505-1.jar	Tue Nov 16 08:35:08 UTC 2021	16225116	
+gs-spring-boot-0.2.0-20211116.083505-1.jar.md5	Tue Nov 16 08:35:08 UTC 2021	32	
+gs-spring-boot-0.2.0-20211116.083505-1.jar.sha1	Tue Nov 16 08:35:08 UTC 2021	40	
+gs-spring-boot-0.2.0-20211116.083505-1.pom	Tue Nov 16 08:35:08 UTC 2021	2085	
+gs-spring-boot-0.2.0-20211116.083505-1.pom.md5	Tue Nov 16 08:35:08 UTC 2021	32	
+gs-spring-boot-0.2.0-20211116.083505-1.pom.sha1	Tue Nov 16 08:35:08 UTC 2021	40	
+
+8.If we make the changes and build the project followed by mvn deploy everytime it will generate new time stamp with in the same build 
+
+Downloading from maven-snapshots: http://54.204.94.224:8081/repository/maven-snapshots/org/springframework/gs-spring-boot/0.2.0-SNAPSHOT/maven-metadata.xml
+Downloaded from maven-snapshots: http://54.204.94.224:8081/repository/maven-snapshots/org/springframework/gs-spring-boot/0.2.0-SNAPSHOT/maven-metadata.xml (783 B at 4.4 kB/s)
+Uploading to maven-snapshots: http://54.204.94.224:8081/repository/maven-snapshots/org/springframework/gs-spring-boot/0.2.0-SNAPSHOT/gs-spring-boot-0.2.0-20211116.084022-2.jar
+Uploaded to maven-snapshots: http://54.204.94.224:8081/repository/maven-snapshots/org/springframework/gs-spring-boot/0.2.0-SNAPSHOT/gs-spring-boot-0.2.0-20211116.084022-2.jar (16 MB at 16 MB/s)
+Uploading to maven-snapshots: http://54.204.94.224:8081/repository/maven-snapshots/org/springframework/gs-spring-boot/0.2.0-SNAPSHOT/gs-spring-boot-0.2.0-20211116.084022-2.pom
+Uploaded to maven-snapshots: http://54.204.94.224:8081/repository/maven-snapshots/org/springframework/gs-spring-boot/0.2.0-SNAPSHOT/gs-spring-boot-0.2.0-20211116.084022-2.pom (2.1 kB at 22 kB/s)
+Downloading from maven-snapshots: http://54.204.94.224:8081/repository/maven-snapshots/org/springframework/gs-spring-boot/maven-metadata.xml
+Downloaded from maven-snapshots: http://54.204.94.224:8081/repository/maven-snapshots/org/springframework/gs-spring-boot/maven-metadata.xml (293 B at 11 kB/s)
+Uploading to maven-snapshots: http://54.204.94.224:8081/repository/maven-snapshots/org/springframework/gs-spring-boot/0.2.0-SNAPSHOT/maven-metadata.xml
+Uploaded to maven-snapshots: http://54.204.94.224:8081/repository/maven-snapshots/org/springframework/gs-spring-boot/0.2.0-SNAPSHOT/maven-metadata.xml (783 B at 12 kB/s)
+Uploading to maven-snapshots: http://54.204.94.224:8081/repository/maven-snapshots/org/springframework/gs-spring-boot/maven-metadata.xml
+Uploaded to maven-snapshots: http://54.204.94.224:8081/repository/maven-snapshots/org/springframework/gs-spring-boot/maven-metadata.xml (293 B at 5.9 kB/s)
 
 
+http://54.204.94.224:8081/service/rest/repository/browse/maven-snapshots/org/springframework/gs-spring-boot/0.2.0-SNAPSHOT/0.2.0-20211116.084022-2/
 
-
-
-
+Index of /org/springframework/gs-spring-boot/0.2.0-SNAPSHOT/0.2.0-20211116.084022-2
+Name	Last Modified	Size	Description
+Parent Directory
+gs-spring-boot-0.2.0-20211116.084022-2.jar	Tue Nov 16 08:40:25 UTC 2021	16225116	
+gs-spring-boot-0.2.0-20211116.084022-2.jar.md5	Tue Nov 16 08:40:25 UTC 2021	32	
+gs-spring-boot-0.2.0-20211116.084022-2.jar.sha1	Tue Nov 16 08:40:25 UTC 2021	40	
+gs-spring-boot-0.2.0-20211116.084022-2.pom	Tue Nov 16 08:40:25 UTC 2021	2085	
+gs-spring-boot-0.2.0-20211116.084022-2.pom.md5	Tue Nov 16 08:40:25 UTC 2021	32	
+gs-spring-boot-0.2.0-20211116.084022-2.pom.sha1	Tue Nov 16 08:40:25 UTC 2021	40	
 
 
 
