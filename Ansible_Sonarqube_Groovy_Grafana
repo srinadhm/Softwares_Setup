@@ -872,9 +872,28 @@ default credentials
 username : admin
 password : password
 
-reset password
+once we are able to login using default credentials , we can reset password
 
+13.Postgresql Installation
 
+Personal or Practise we can prefer t2.micro , but in office we have to use R family R4 or R5 instances
+
+1.Generally if we want to install any software in linux we can look for 
+Redhat/Centos  family ---- rpm files
+Ubuntu family ---- debian files
+
+Generally if we want to install any software in Windows  we can look for either .exe or msi files
+
+2.If the rpm file is not available we need to look/create repositories and enable them on our machine
+
+ex: mongodb installation we need create under yum.repos.d (redhat/centos family)
+
+3.If both rpm and repositories are not available we need to look/download 
+
+tar.gz 
+zip extension folders and extract using tar or unzip 
+
+ex: for maven installation we need to download tar.gz folders and extract 
 
 
 
