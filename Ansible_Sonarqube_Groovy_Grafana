@@ -519,7 +519,88 @@ To check code quality or analyze the project we need to generate sonar token
 
 My Account ---> Security ---> Generate Tokens <enter token_name> --> Generate
 
-copy the token otherwise it will disappeared
+copy the token otherwise it will disappeared : 20b16826873641fa4848c6eba7e0297f60734384
+
+Sonarqube Integration with maven
+
+Maven Installation 
+https://maven.apache.org/download.cgi
+
+(a)Download maven url using wget command maven 
+url https://dlcdn.apache.org/maven/maven-3/3.8.3/binaries/apache-maven-3.8.3-bin.tar.gz
+
+wget https://dlcdn.apache.org/maven/maven-3/3.8.3/binaries/apache-maven-3.8.3-bin.tar.gz
+(b) untar the maven downloaded tar 
+tar -xvzf apache-maven-3.8.3-bin.tar.gz
+(c) Set maven path where it is installed using export and add to path variable
+vi /etc/profile.d/maven.sh
+export MAVEN_HOME=/opt/apache-maven-3.8.3
+export PATH=$PATH:$MAVEN_HOME/bin
+(d) save the changes by source command 
+source /etc/profile.d/maven.sh
+
+or 
+(2)Instead of step c and d we can set path using export command 
+export PATH=$PATH:/opt/apache-maven-3.8.3/bin
+or 
+(3)Set the maven path in bash rc file
+vi /root/.bashrc
+export MAVEN_HOME=/opt/apache-maven-3.8.3
+export PATH=$PATH:$MAVEN_HOME/bin
+save the changes by source command 
+source /etc/profile.d/maven.sh
+
+
+(e) verify installation or maven version 
+mvn --version
+Apache Maven 3.8.3 (05c21c65bdfed0f71a2f2ada8b84da59348c4c5d)
+Maven home: /opt/apache-maven-3.8.3
+Java version: 1.8.0_282, vendor: Red Hat, Inc., runtime: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.282.b08-1.amzn2.0.1.x86_64/jre
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "4.14.231-173.361.amzn2.x86_64", arch: "amd64", family: "unix"
+
+
+Maven Integration with Sonarqube
+
+Install git to clone the project and analyze using sonarqube
+
+git clone https://github.com/cloudtechmasters/springboothello-CICD.git
+
+cd springboothello-CICD
+
+https://www.baeldung.com/sonar-qube
+https://mvnrepository.com/artifact/org.sonarsource.scanner.maven/sonar-maven-plugin
+
+#add sonarqube plugin in maven pom.xml 
+
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.4.0.905</version>
+            </plugin>
+	    
+#After adding plugin run the maven command to analyze/scan the project
+
+Sonarqube will look the java classes in target folder 
+
+#clean and build the project to generate classes in target folder
+mvn clean install 
+
+mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 
+  -Dsonar.login=the-generated-token
+ 
+mvn sonar:sonar -Dsonar.host.url=http://54.204.94.224:9000  -Dsonar.login=20b16826873641fa4848c6eba7e0297f60734384 -Dsonar.java.binaries=target/classes
+
+Once the build is success we can see the projects in Sonarqube Dashboard under Projects Sonarqube ignores 2 code smells if it crosses Quality gate status will be failed 
+
+Sometimes if the develop the code with System.out for printing data the sonqrqube will detect as code smells to avoid that we have to use Logger instead of System.out
+
+https://mkyong.com/spring-boot/spring-boot-slf4j-logging-example/
+
+After making code changes we need to build the project to reflect the changes and followed by sonarqube command
+
+
+
 
 
 
