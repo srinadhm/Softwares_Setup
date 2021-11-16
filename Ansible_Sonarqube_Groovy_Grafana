@@ -963,7 +963,100 @@ Mysql Conf file :  vi /etc/my.cnf
  jdbc:mysql://3.215.181.18:3306/mysql
  
  
+14.Postgresql Installation
 
+Postgresql port number : 5432
+
+
+amazon-linux-extras install postgresql10 vim epel -y
+yum install -y postgresql-server postgresql-devel
+/usr/bin/postgresql-setup --initdb
+
+ * Initializing database in '/var/lib/pgsql/data'
+ * Initialized, logs are in /var/lib/pgsql/initdb_postgresql.log
+ 
+ [root@ip-172-31-20-29 ~]# ll /var/lib/pgsql/data
+total 48
+drwx------ 5 postgres postgres    41 Nov 16 19:15 base
+drwx------ 2 postgres postgres  4096 Nov 16 19:15 global
+drwx------ 2 postgres postgres     6 Nov 16 19:15 log
+drwx------ 2 postgres postgres     6 Nov 16 19:15 pg_commit_ts
+drwx------ 2 postgres postgres     6 Nov 16 19:15 pg_dynshmem
+-rw------- 1 postgres postgres  4269 Nov 16 19:15 pg_hba.conf
+-rw------- 1 postgres postgres  1636 Nov 16 19:15 pg_ident.conf
+drwx------ 4 postgres postgres    68 Nov 16 19:15 pg_logical
+drwx------ 4 postgres postgres    36 Nov 16 19:15 pg_multixact
+drwx------ 2 postgres postgres    18 Nov 16 19:15 pg_notify
+drwx------ 2 postgres postgres     6 Nov 16 19:15 pg_replslot
+drwx------ 2 postgres postgres     6 Nov 16 19:15 pg_serial
+drwx------ 2 postgres postgres     6 Nov 16 19:15 pg_snapshots
+drwx------ 2 postgres postgres     6 Nov 16 19:15 pg_stat
+drwx------ 2 postgres postgres     6 Nov 16 19:15 pg_stat_tmp
+drwx------ 2 postgres postgres    18 Nov 16 19:15 pg_subtrans
+drwx------ 2 postgres postgres     6 Nov 16 19:15 pg_tblspc
+drwx------ 2 postgres postgres     6 Nov 16 19:15 pg_twophase
+-rw------- 1 postgres postgres     3 Nov 16 19:15 PG_VERSION
+drwx------ 3 postgres postgres    60 Nov 16 19:15 pg_wal
+drwx------ 2 postgres postgres    18 Nov 16 19:15 pg_xact
+-rw------- 1 postgres postgres    88 Nov 16 19:15 postgresql.auto.conf
+-rw------- 1 postgres postgres 22981 Nov 16 19:15 postgresql.conf
+[root@ip-172-31-20-29 ~]#
+
+# Start postgresql server
+
+[root@ip-172-31-20-29 ~]# service postgresql start
+Redirecting to /bin/systemctl start postgresql.service
+
+Check the postgresql installation and port is up and running
+
+[root@ip-172-31-20-29 ~]# rpm -qa | grep postgresql
+postgresql-libs-10.17-1.amzn2.0.2.x86_64
+postgresql-devel-10.17-1.amzn2.0.2.x86_64
+postgresql-10.17-1.amzn2.0.2.x86_64
+postgresql-server-10.17-1.amzn2.0.2.x86_64
+
+[root@ip-172-31-20-29 ~]# netstat -plunt | grep :5432
+tcp        0      0 127.0.0.1:5432          0.0.0.0:*               LISTEN      3873/postmaster
+
+Switch to postgres user and set the password 
+
+[root@ip-172-31-20-29 ~]# su - postgres
+-bash-4.2$ psql -U postgres
+psql (10.17)
+Type "help" for help.
+
+postgres=# \password
+Enter new password:
+Enter it again:
+postgres=#
+
+After setting password login to postgresql database
+
+[root@ip-172-31-20-29 ~]# su - postgres
+Last login: Tue Nov 16 19:22:24 UTC 2021 on pts/1
+-bash-4.2$ psql -U postgres -W
+Password for user postgres:
+psql (10.17)
+Type "help" for help.
+
+postgres=#
+
+
+#For remote login we need to change some properties in conf files
+Vi /var/lib/pgsql/data/postgresql.conf
+
+#listen_addresses = '*'  (replaced from localhost to * to accept all connections
+
+Vi /var/lib/pgsql/data/pg_hba.conf
+
+# IPv4 local connections:
+host    all             all             0.0.0.0/0               md5
+
+#Restart postgresql service
+
+service postgresql restart 
+
+#Connect to postgresql by using sql workbench followed by downloading postgresql java jar 
 
 
 
