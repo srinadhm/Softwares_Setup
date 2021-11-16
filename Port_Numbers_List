@@ -1,0 +1,45 @@
+SSH(putty,mobaxterm)  22
+FTP(winscp)  20,21
+Telnet 23
+DNS 53
+DHCP 67,68
+RDP 3389
+SAMBA 137 – 139 and 445
+TLS 443
+SSL 443
+HTTP/Nginx/Nagios 80
+TFTP 69
+Kerberos 88
+NTP 123
+NNTP 119
+POP3 110
+LDAP 389
+IMAP4 143
+SNMP 161,162
+HTTPS 443
+SMTP 25
+NFS 2049 for both TCP and UDP
+Jenkins/Tomcat/Jboss/Jetty 8080
+Websphere 9080
+Weblogic 7001
+Nexus/Jfrog 8081
+Jfrog 8081 & 8082
+Grafana 3000
+Promotheus 9090
+Elastic Search 9200
+Logstash 5044
+Kibana 5601
+Mysql 3306
+Postgresql 5432
+Mongodb 27017
+Oracle db 1521
+Ms-Sql Server 1433
+Cassandra 7000/9160
+Zookeeper 2181 2888 3888
+Kafka 9092
+Sonarqube 9000
+Rabbitmq 5672 
+Active Mq 61616
+Redis 6379
+
+IMAP uses port 143 , but SSL/TLS encrypted IMAP uses port 993 . POP uses port 110 , but SSL/TLS encrypted POP uses port 995 . SMTP uses port 25 , but SSL/TLS encrypted SMTP uses port 465
