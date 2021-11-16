@@ -773,6 +773,108 @@ gs-spring-boot-0.2.0-20211116.084022-2.pom.md5	Tue Nov 16 08:40:25 UTC 2021	32
 gs-spring-boot-0.2.0-20211116.084022-2.pom.sha1	Tue Nov 16 08:40:25 UTC 2021	40	
 
 
+11.Boto/Boto3 Installation
+
+1. You’ll first use the yum package manager to install Python and the pip Python package installer:
+
+yum install python python-devel python-pip -y
+
+2. Now we will install the Boto package via pip:
+
+pip install boto3 
+
+3.Check boto3 version using pip
+
+[root@ip-172-31-26-237 ~]# pip show boto3
+DEPRECATION: Python 2.7 reached the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 is no longer maintained. pip 21.0 will drop support for Python 2.7 in January 2021. More details about Python 2 support in pip can be found at https://pip.pypa.io/en/latest/development/release-process/#python-2-support
+Name: boto3
+Version: 1.17.112
+Summary: The AWS SDK for Python
+Home-page: https://github.com/boto/boto3
+Author: Amazon Web Services
+Author-email: None
+License: Apache License 2.0
+Location: /usr/lib/python2.7/site-packages
+Requires: jmespath, s3transfer, botocore
+Required-by:
+
+4.Check boto3 version python program or command line 
+
+[root@ip-172-31-26-237 ~]# python -c "
+> import boto3;
+> print boto3.__version__"
+1.17.112
+
+12.Jfrog artifactory (Java is Prerequisite)
+
+Jfrog Port numbers : 8081 (java)
+                     8082 (jf-router)
+
+# https://www.devopsschool.com/blog/artifactory-install-and-configurations-guide/
+
+yum install java-1.8.0-openjdk java-1.8.0-openjdk-devel -y
+
+RPM File – Download, Install & Run Artifactory OSS
+1.wget https://bintray.com/jfrog/artifactory-rpms/rpm -O bintray-jfrog-artifactory-rpms.repo
+
+2.sudo mv bintray-jfrog-artifactory-rpms.repo /etc/yum.repos.d/
+
+3.After moving check repo is added to repos.d
+
+[root@ip-172-31-26-237 ~]# yum repolist
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+repo id                                                        repo name                                                       status
+amzn2-core/2/x86_64                                            Amazon Linux 2 core repository                                  26,801
+amzn2extra-docker/2/x86_64                                     Amazon Extras repo for docker                                       52
+bintray--jfrog-artifactory-rpms                                bintray--jfrog-artifactory-rpms                                    654
+repolist: 27,507
+
+
+4.sudo yum install jfrog-artifactory-oss -y
+
+5.Start artifactory service
+
+systemctl start artifactory.service
+systemctl status artifactory.service
+systemctl stop artifactory.service
+ 
+service artifactory status
+service artifactory start
+service artifactory stop
+
+
+6.After starting check ,installation,repository is up and running using netstat and rpm,ps command
+[root@ip-172-31-26-237 ~]# netstat -plunt | grep :8081
+tcp6       0      0 :::8081                 :::*                    LISTEN      7202/java
+[root@ip-172-31-26-237 ~]# netstat -plunt | grep :8082
+tcp6       0      0 :::8082                 :::*                    LISTEN      7605/jf-router
+
+
+[root@ip-172-31-26-237 ~]# rpm -qa | grep artifactory
+jfrog-artifactory-oss-7.27.10-72710900.x86_64
+
+[root@ip-172-31-26-237 ~]# ps -aux | grep artifactory
+artifac+  7202 77.7 32.2 5122328 1301276 ?     Sl   13:47   1:14 /opt/jfrog/artifactory/app/third-party/java/bin/java -Djava.util.logging.config.file=/opt/jfrog/artifactory/app/artifactory/tomcat/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Dorg.apache.catalina.security.SecurityListener.UMASK=0027 -server -Xms512m -Xmx2g -XX:+UseG1GC -XX:OnOutOfMemoryError=kill -9 %p --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.lang.invoke=ALL-UNNAMED --add-opens java.base/java.text=ALL-UNNAMED --add-opens java.base/java.nio=ALL-UNNAMED --add-opens java.desktop/java.awt.font=ALL-UNNAMED -Dfile.encoding=UTF8 -Djruby.compile.invokedynamic=false -Djruby.bytecode.version=1.8 -Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true -Djava.security.egd=file:/dev/./urandom -Dartdist=rpm -Djf.product.home=/opt/jfrog/artifactory -Djruby.bytecode.version=1.8 -Dignore.endorsed.dirs= -classpath /opt/jfrog/artifactory/app/artifactory/tomcat/bin/bootstrap.jar:/opt/jfrog/artifactory/app/artifactory/tomcat/bin/tomcat-juli.jar -Dcatalina.base=/opt/jfrog/artifactory/app/artifactory/tomcat -Dcatalina.home=/opt/jfrog/artifactory/app/artifactory/tomcat -Djava.io.tmpdir=/opt/jfrog/artifactory/var/work/artifactory/tomcat/temp org.apache.catalina.startup.Bootstrap start
+artifac+  7605  1.3  1.5 1388836 63036 ?       Sl   13:47   0:00 /opt/jfrog/artifactory/app/router/bin/jf-router
+artifac+  7765  0.6  0.9 1128864 40336 ?       Sl   13:47   0:00 /opt/jfrog/artifactory/app/metadata/bin/jf-metadata
+artifac+  7910  0.8  1.1 598360 46156 ?        Sl   13:47   0:00 /opt/jfrog/artifactory/app/third-party/node/bin/node /opt/jfrog/artifactory/app/frontend/bin/server/dist/startup.js /opt/jfrog/artifactory/app/frontend
+artifac+  8027  0.0  0.6 1187244 24676 ?       Sl   13:47   0:00 /opt/jfrog/artifactory/app/observability/bin/jf-observability
+artifac+  8059  2.4  1.9 947096 77056 ?        Sl   13:47   0:01 /opt/jfrog/artifactory/app/third-party/node/bin/node /opt/jfrog/artifactory/app/frontend/bin/server/dist/bundle.js
+root      8120  0.0  0.0 119420   876 pts/0    S+   13:48   0:00 grep --color=auto artifactory
+
+
+7.Allow port numbers 8081 and 8082 in security groups and access webui with server ip and port
+
+http://54.147.58.35:8082/ui/ (if we use 8081 also it will be redirected to 8082 (jf-router)
+
+default credentials
+
+username : admin
+password : password
+
+reset password
+
+
 
 
 
