@@ -69,6 +69,9 @@ ansible 2.9.23
 https://techviewleo.com/install-elastic-stack-elk-on-amazon-linux/
 https://www.elastic.co/guide/en/logstash/current/installing-logstash.html
 https://www.tecmint.com/fix-firewall-cmd-command-not-found-error/
+Elastic search port number : 9200
+Logstash port number : 5044
+Kibana port number : 5601
 
 [root@ip-172-31-89-165 ~]# netstat -plunt | grep :5044
 tcp6       0      0 :::5044                 :::*                    LISTEN      1080/java
@@ -95,6 +98,8 @@ sudo firewall-cmd --reload
 
 
 4.Promotheus Installation
+
+Promotheus port number : 9090
 
 https://codewizardly.com/prometheus-on-aws-ec2-part1/
 https://techviewleo.com/how-to-install-prometheus-on-amazon-linux/
@@ -227,6 +232,8 @@ Right now we have just configured prometheus. You need to register the target in
 
 5.Grafana Installation
 
+Grafana port number : 3000
+
 https://www.radishlogic.com/aws/ec2/how-to-install-grafana-on-ec2-amazon-linux-2/
 https://techviewleo.com/how-to-install-grafana-on-amazon-linux/
 https://www.tecmint.com/fix-firewall-cmd-command-not-found-error/
@@ -257,6 +264,8 @@ Default logins are:
  
  6.Tomcat Installation (Java Pre requisite)
  
+ Tomcat port number : 8080
+ 
  https://techviewleo.com/install-tomcat-on-amazon-linux/
  yum install firewalld
  systemctl  enable firewalld
@@ -271,6 +280,8 @@ Default logins are:
  http://3.82.232.144:8080/
 
 7.Mongodb Installation
+
+Mongodb port number : 27017
 
 https://docs.mongodb.com/manual/tutorial/install-mongodb-on-amazon/
 https://devopsmyway.com/install-mongodb-on-ec2/
@@ -310,6 +321,8 @@ Build Info: {
 }
 
 8.Cassandra Installation (Java is Prerequisite,Python Prerequisite)
+
+Cassandra port number : 9160
 
 https://bhargavamin.com/how-to-do/install-cassandra-on-amazon-ec2-centos/
 https://abwahed.medium.com/install-cassandra-on-aws-ec2-linux-instance-303de63e0f82
@@ -436,6 +449,8 @@ http://52.91.215.236/users/sign_in
 enter the reset username and password , it will display the home page of GitLab UI
 
  10.Sonarqube Installation (Java is Prerequisite)
+ 
+ Sonarqube port number : 9000
  
  sonarqube 7 supports java 8
  sonarqube 8 supports java 11
