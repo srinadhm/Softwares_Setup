@@ -374,6 +374,10 @@ can we discuss
 14.Nexus Installation ( Java is Prerequisite)
 Nexus port number : 8081
 
+Nexus 3 --- > Java 8 is needed , Java 11 won't work
+
+
+
 Nexus download url
 https://help.sonatype.com/repomanager3/download
 Other/Old Versions
