@@ -874,7 +874,11 @@ password : password
 
 once we are able to login using default credentials , we can reset password
 
-13.Postgresql Installation
+13.Mysql Installation
+
+Mysql port number : 3306
+
+https://techviewleo.com/how-to-install-mysql-8-on-amazon-linux-2/ 
 
 Personal or Practise we can prefer t2.micro , but in office we have to use R family R4 or R5 instances
 
@@ -894,6 +898,72 @@ tar.gz
 zip extension folders and extract using tar or unzip 
 
 ex: for maven installation we need to download tar.gz folders and extract 
+
+Start the mysql server daemon
+
+[root@ip-172-31-15-191 ~]# service mysqld start
+Redirecting to /bin/systemctl start mysqld.service
+[root@ip-172-31-15-191 ~]# service mysqld status
+Redirecting to /bin/systemctl status mysqld.service
+● mysqld.service - MySQL Server
+   Loaded: loaded (/usr/lib/systemd/system/mysqld.service; enabled; vendor preset: disabled)
+   Active: active (running) since Tue 2021-11-16 15:23:36 UTC; 4s ago
+     Docs: man:mysqld(8)
+           http://dev.mysql.com/doc/refman/en/using-systemd.html
+  Process: 3038 ExecStartPre=/usr/bin/mysqld_pre_systemd (code=exited, status=0/SUCCESS)
+ Main PID: 3111 (mysqld)
+   Status: "Server is operational"
+   CGroup: /system.slice/mysqld.service
+           └─3111 /usr/sbin/mysqld
+
+Nov 16 15:23:30 ip-172-31-15-191.ec2.internal systemd[1]: Starting MySQL Server...
+Nov 16 15:23:36 ip-172-31-15-191.ec2.internal systemd[1]: Started MySQL Server.
+
+
+After installation mysql community server check mysql is installed using rpm,ps and listening the port using netstat command
+
+[root@ip-172-31-15-191 ~]# rpm -qa | grep mysql
+mysql80-community-release-el7-3.noarch
+mysql-community-common-8.0.27-1.el7.x86_64
+mysql-community-server-8.0.27-1.el7.x86_64
+mysql-community-client-plugins-8.0.27-1.el7.x86_64
+mysql-community-libs-8.0.27-1.el7.x86_64
+mysql-community-client-8.0.27-1.el7.x86_64
+mysql-community-libs-compat-8.0.27-1.el7.x86_64
+[root@ip-172-31-15-191 ~]# ps -aux | grep mysql
+root      2912  0.0  0.0 241824  7188 pts/0    T    15:20   0:00 sudo yum install mysql-community-server
+root      2913  0.1  0.2 364492 32884 pts/0    T    15:20   0:00 /usr/bin/python /bin/yum install mysql-community-server
+
+[root@ip-172-31-15-191 ~]# netstat -plunt | grep :3306
+tcp6       0      0 :::33060                :::*                    LISTEN      3111/mysqld
+tcp6       0      0 :::3306                 :::*                    LISTEN      3111/mysqld
+
+#After resetting/altering  password connect to mysql database with new generated one 
+
+ mysql -u root -pMyNewStrongP@ssw0d!
+ 
+ ##If we want to connect to mysql database running on ec2-instance from local machine##
+ 
+ 1.We need to allow remote connection
+ 
+ https://phoenixnap.com/kb/mysql-remote-connection
+ 
+Mysql Conf file :  vi /etc/my.cnf
+ 
+ bind-address = 0.0.0.0
+ 
+ restart mysql server 
+ 
+ service mysqld restart
+ 
+ 2.To connect to remote mysql database from local windows machine we need to use sql work-bench (remote databases connect)and 
+ 3.Download corressponding mysql jar to connect to mysql database and connect to jdbc url
+ 
+ java jdbc url ://Server Ip:mysql port/default database
+ jdbc:mysql://3.215.181.18:3306/mysql
+ 
+ 
+
 
 
 
