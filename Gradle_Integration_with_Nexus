@@ -1,0 +1,47 @@
+Spring boot gradle project with Nexus and upload jar to nexus 
+1.Gradle 6 especially we are going to use 6.8 works with nexus http & https 
+2.Gradle 7 works only with nexus https
+
+Prerequisite
+Java 1.8
+Gradle 6.8
+Nexus 3
+
+Clone the gradle-project demo
+
+To integrate with nexus we need to add publish plugin,add the nexus localtion in build.gradle
+
+id 'maven-publish' 
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+
+ // bootJar is the default build task configured by Spring Boot
+            artifact bootJar
+        }
+    }
+
+    repositories {
+        maven {
+            url = "http://23.22.134.213:8081/repository/maven-snapshots/"
+            credentials {
+                username "admin"
+                password "srinadh"
+            }
+        }
+		maven {
+            url = "http://23.22.134.213:8081/repository/maven-releases/"
+            credentials {
+                username "admin"
+                password "srinadh"
+            }
+        }
+
+
+Maven                           Gradle
+pom.xml                         build.gradle
+build                           plugins
+mvn clean install               gradle clean build --stacktrace
+mvn deploy                      gradle publish --stacktrace
+
