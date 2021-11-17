@@ -64,6 +64,7 @@ OS name: "linux", version: "4.14.231-173.361.amzn2.x86_64", arch: "amd64", famil
 (4)Gradle Installation
 (a)Download gradle  url using wget command 
 gradle url https://services.gradle.org/distributions/gradle-6.9-bin.zip
+           https://services.gradle.org/distributions/gradle-6.8-bin.zip
 
 wget https://services.gradle.org/distributions/gradle-6.9-bin.zip
 
@@ -79,8 +80,12 @@ export PATH=$PATH:$GRADLE_HOME/bin
 
 (d) save the changes by source command 
 source /etc/profile.d/gradle.sh
+
 or Instead of step c and d we can set path using export command 
 export PATH=$PATH:/opt/gradle-6.9/bin
+export PATH=$PATH:/opt/gradle-6.8/bin
+
+
 
 (e) verify gradle installation or gradle version
 gradle -v 
@@ -96,6 +101,9 @@ Groovy:       2.5.12
 Ant:          Apache Ant(TM) version 1.10.9 compiled on September 27 2020
 JVM:          1.8.0_282 (Red Hat, Inc. 25.282-b08)
 OS:           Linux 4.14.232-177.418.amzn2.x86_64 amd64
+
+
+
 
 5.Docker Installation
 
