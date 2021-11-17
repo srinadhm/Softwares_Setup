@@ -62,6 +62,8 @@ Default locale: en_US, platform encoding: UTF-8
 OS name: "linux", version: "4.14.231-173.361.amzn2.x86_64", arch: "amd64", family: "unix"
 
 (4)Gradle Installation
+Gradle download url : https://services.gradle.org/distributions/
+
 (a)Download gradle  url using wget command 
 gradle url https://services.gradle.org/distributions/gradle-6.9-bin.zip
            https://services.gradle.org/distributions/gradle-6.8-bin.zip
@@ -384,7 +386,7 @@ Nexus port number : 8081
 
 Nexus 3 --- > Java 8 is needed , Java 11 won't work
 
-
+yum install java-1.8.0-openjdk java-1.8.0-openjdk-devel -y 
 
 Nexus download url
 https://help.sonatype.com/repomanager3/download
@@ -392,6 +394,44 @@ Other/Old Versions
 https://help.sonatype.com/repomanager3/download/download-archives---repository-manager-3
 
 https://devopscube.com/how-to-install-latest-sonatype-nexus-3-on-linux/
+
+1.Download tar.gz of sonatype
+sudo wget -O nexus.tar.gz https://download.sonatype.com/nexus/3/latest-unix.tar.gz
+2.Extract tar.gz file
+tar -xvf nexus.tar.gz
+3.Rename from nexus-3 to nexus
+mv nexus-3* nexus
+4.Change the owner ship for nexus and sonatype-work
+chown -R ec2-user:ec2-user nexus sonatype-work
+5.switch to nexus.rc file and change run_as_user to ec2-user
+vi nexus/bin/nexus.rc
+run_as_user="ec2-user"
+
+save changes and exit
+
+6.Start nexus 
+./nexus start
+
+Possible options are 
+./nexus status check the nexus status
+./nexus stop   stop nexus
+./nexus restart restart nexus
+
+7.Allow port number 8081 in security and access it with server ip and port
+
+23.22.134.213:8081
+
+8.To log in, use the default username and password.
+
+Default username is admin
+
+You can find the default admin password in sonatype-work/nexus3/admin.password file. 
+
+After connecting reset the password of our own 
+
+and setup is done
+
+
 
 15.Elastic Search ( Java is Prerequisite) 
 
