@@ -491,3 +491,29 @@ http://54.164.90.254:9200/
   },
   "tagline" : "You Know, for Search"
 }
+
+
+16.Tomcat Installation (Java is Mandatory)
+
+https://downloads.apache.org/tomcat/
+
+https://downloads.apache.org/tomcat/tomcat-10/v10.0.13/bin/apache-tomcat-10.0.13.tar.gz
+
+1.Download tar.gz using wget command
+
+wget https://downloads.apache.org/tomcat/tomcat-10/v10.0.13/bin/apache-tomcat-10.0.13.tar.gz
+
+2.extarct tar
+
+ tar -xzvf apache-tomcat-10.0.13.tar.gz
+ 
+ 3.Go to bin directory and start tomcat
+ 
+ /opt/apache-tomcat-10.0.13/bin/startup.sh
+ 
+ sh startup.sh
+ 
+ 4.Check tomcat port is active and running 
+ 
+ [root@ip-172-31-87-241 bin]# netstat -plunt | grep :8080
+tcp6       0      0 :::8080                 :::*                    LISTEN      3356/java
