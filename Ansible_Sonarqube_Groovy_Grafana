@@ -1059,5 +1059,54 @@ service postgresql restart
 #Connect to postgresql by using sql workbench followed by downloading postgresql java jar 
 
 
+15.Packer Installation
+
+https://www.middlewareinventory.com/blog/packer-aws-terraform-example/
+https://www.packer.io/downloads
+
+Packer is an OpenSource Image Provisioning tool developed by Hashicorp.
+
+It creates machine images and makes the Configuration Management and Server provisioning an easy Job.
+
+It can create Images for multiple platforms like Docker, AWS, Oracle Virtual Box, Digital Ocean, OpenStack, Linode, Azure etc.
+
+you can write the Instructions to the packer as JSON files they are called as  Templates in Packer Parlance.
+
+The technology Packer facilitates is widely known Infrastructure as a Code  (IOC)
+
+#Check packer version
+
+[root@ip-172-31-87-241 ~]# rpm -qa | grep packer
+packer-1.7.8-1.x86_64
+[root@ip-172-31-87-241 ~]# find / -name packer
+/usr/bin/packer
+/usr/sbin/packer
+[root@ip-172-31-87-241 ~]# /usr/bin/packer -version
+1.7.8
+
+#To automate or manage aws serivces 
+1.We can create IAM role and attach it to EC2 Instance 
+2.We can create IAM user followed by appropriate permissions(AmazonEC2FullAccess) and add secret key and access key 
+
+In this scenario , creating IAM Role and configure Access key and Secret key 
+
+After creating IAM user 
+
+copy Access key and Secret Key
+
+Access key ID : AKIAWED4YLUR6MVAAJDY
+Secret access key  : 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
+
+3.Commands to validate packer 
+
+/usr/bin/packer validate ebs.json
+
+4.Build packer 
+
+/usr/bin/packer build ebs.json
+
+
+Once the build is done it will creating ec2 instance in EC2 Dash board , will execute provisioners of create welcome file and setup.sh and once it is done by creating ami under public images, 
+Instance will be terminated
 
 
