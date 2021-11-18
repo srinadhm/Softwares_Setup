@@ -1106,7 +1106,7 @@ Secret access key  : 2wl6ptcgs1tJiwTeEDX3VYKGLq875W+Z1jQJcoOR
 /usr/bin/packer build ebs.json
 
 
-Once the build is done it will creating ec2 instance in EC2 Dash board , will execute provisioners of create welcome file and setup.sh and once it is done by creating ami under public images, 
+Once the build is done it will creating ec2 instance in EC2 Dash board , will execute provisioners of create welcome file and setup.sh and once it is done by creating ami under Owned by me, 
 Instance will be terminated
 
 
