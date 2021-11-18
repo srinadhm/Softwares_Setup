@@ -100,6 +100,36 @@ CONTAINER ID   IMAGE     COMMAND                  CREATED              STATUS   
 
 difference between brdige network v/s host network 
 
+If we run container in host network no need to do port forwading , 
+but in case of bridge network have to mention port forwading.
+
+#Be default if we run any container it will be created under bridge network only 
+
+docker run --name=jenkins --network=bridge -p 8080:8080 jenkins/jenkins:lts
+             
+             or 
+
+docker run --name=jenkins -p 8080:8080 jenkins/jenkins:lts
+
+[root@ip-172-31-91-176 ~]# docker ps
+CONTAINER ID   IMAGE                 COMMAND                  CREATED         STATUS         PORTS                                                  NAMES
+ef479ab354f1   jenkins/jenkins:lts   "/sbin/tini -- /usr/…"   5 minutes ago   Up 5 minutes   0.0.0.0:8080->8080/tcp, :::8080->8080/tcp, 50000/tcp   jenkins
+
+docker inspect
+
+"Ports": {
+                "50000/tcp": null,
+                "8080/tcp": [
+                    {
+                        "HostIp": "0.0.0.0",
+                        "HostPort": "8080"
+                    },
+                    {
+                        "HostIp": "::",
+                        "HostPort": "8080"
+                    }
+                ]
+            },
 
 
 
