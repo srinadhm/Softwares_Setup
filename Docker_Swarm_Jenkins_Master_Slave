@@ -4,6 +4,8 @@ Docker Networking
 https://www.tutorialspoint.com/docker-host-network-vs-bridge-network
 https://www.tutorialspoint.com/docker/docker_networking.htm
 
+There are three common Docker network types – bridge networks, used within a single host, overlay networks, for multi-host communication (docker-swarm)
+
 #To see the network list
 
 docker network ls
