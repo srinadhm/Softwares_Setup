@@ -39,24 +39,24 @@ git version 2.23.4
 https://maven.apache.org/download.cgi
 
 (a)Download maven url using wget command maven 
-url https://dlcdn.apache.org/maven/maven-3/3.8.3/binaries/apache-maven-3.8.3-bin.tar.gz
+url : https://dlcdn.apache.org/maven/maven-3/3.8.4/binaries/apache-maven-3.8.4-bin.tar.gz
 
-wget https://dlcdn.apache.org/maven/maven-3/3.8.3/binaries/apache-maven-3.8.3-bin.tar.gz
+wget https://dlcdn.apache.org/maven/maven-3/3.8.4/binaries/apache-maven-3.8.4-bin.tar.gz
 (b) untar the maven downloaded tar 
-tar -xvzf apache-maven-3.8.3-bin.tar.gz
+tar -xvzf apache-maven-3.8.4-bin.tar.gz
 (c) Set maven path where it is installed using export and add to path variable
 vi /etc/profile.d/maven.sh
-export MAVEN_HOME=/opt/apache-maven-3.8.3
+export MAVEN_HOME=/opt/apache-maven-3.8.4
 export PATH=$PATH:$MAVEN_HOME/bin
 (d) save the changes by source command 
 source /etc/profile.d/maven.sh
 
 or Instead of step c and d we can set path using export command 
-export PATH=$PATH:/opt/apache-maven-3.8.3/bin
+export PATH=$PATH:/opt/apache-maven-3.8.4/bin
 (e) verify installation or maven version 
 mvn --version
-Apache Maven 3.8.3 (05c21c65bdfed0f71a2f2ada8b84da59348c4c5d)
-Maven home: /opt/apache-maven-3.8.3
+Apache Maven 3.8.4 (05c21c65bdfed0f71a2f2ada8b84da59348c4c5d)
+Maven home: /opt/apache-maven-3.8.4
 Java version: 1.8.0_282, vendor: Red Hat, Inc., runtime: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.282.b08-1.amzn2.0.1.x86_64/jre
 Default locale: en_US, platform encoding: UTF-8
 OS name: "linux", version: "4.14.231-173.361.amzn2.x86_64", arch: "amd64", family: "unix"
@@ -166,25 +166,25 @@ https://wiki.jenkins.io/display/JENKINS//Installing+Jenkins+on+Red+Hat+distribut
 
 sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins.io/redhat/jenkins.repo
 sudo rpm --import http://pkg.jenkins.io/redhat/jenkins.io.key
-Install epel repo/distribution for daemonize package 
+###Install epel repo/distribution for daemonize package ####
 sudo amazon-linux-extras install epel -y 
-Enable epel 
+######Enable epel ######
 sudo yum-config-manager --enable epel
-Install jenkins 
+####Install jenkins #####
 sudo yum install jenkins -y
-check jenkins is installed using rpm command 
+#####check jenkins is installed using rpm command 
 rpm -qa | grep jenkins
 jenkins-2.293-1.1.noarch
-Check jenkins status using ps command 
+#####Check jenkins status using ps command 
 ps -aux | grep jenkins
 root      4464  0.0  0.0 119420   864 pts/0    S+   09:54   0:00 grep --color=auto jenkins
-check jenkins service status 
+#####check jenkins service status 
 service jenkins status
 jenkins.service - LSB: Jenkins Automation Server
    Loaded: loaded (/etc/rc.d/init.d/jenkins; bad; vendor preset: disabled)
    Active: inactive (dead)
      Docs: man:systemd-sysv-generator(8)
-Start jenkins service 
+#####Start jenkins service 
 service jenkins start
 Starting jenkins (via systemctl):                          [  OK  ]
 Check jenkins service status again after starting 
