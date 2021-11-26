@@ -396,21 +396,31 @@ https://help.sonatype.com/repomanager3/download/download-archives---repository-m
 https://devopscube.com/how-to-install-latest-sonatype-nexus-3-on-linux/
 
 1.Download tar.gz of sonatype
+cd /opt
 sudo wget -O nexus.tar.gz https://download.sonatype.com/nexus/3/latest-unix.tar.gz
 2.Extract tar.gz file
 tar -xvf nexus.tar.gz
 3.Rename from nexus-3 to nexus
 mv nexus-3* nexus
 4.Change the owner ship for nexus and sonatype-work
-chown -R ec2-user:ec2-user nexus sonatype-work
+chown -R ec2-user:ec2-user nexus/ sonatype-work/
 5.switch to nexus.rc file and change run_as_user to ec2-user
-vi nexus/bin/nexus.rc
+
+[root@ip-172-31-95-6 opt]# cd nexus
+[root@ip-172-31-95-6 nexus]# cd bin
+
+vi nexus.rc
 run_as_user="ec2-user"
 
 save changes and exit
 
 6.Start nexus 
 ./nexus start
+
+[root@ip-172-31-95-6 bin]# ./nexus start
+Last login: Fri Nov 26 04:25:43 UTC 2021 on pts/0
+Starting nexus
+
 
 Possible options are 
 ./nexus status check the nexus status
