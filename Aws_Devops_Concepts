@@ -1,0 +1,202 @@
+git merge
+git pull vs git fetch
+git fetch vs git merge
+cherry pick
+how to revert or ignore old commits
+branching strategy 
+
+
+----------
+what is the activities performed by ansible in your project
+how to retrict ips while sending/installing something in ansible
+
+--
+
+what is daemon set
+how to create eks cluster command
+what is podaffinity,pod antiaffinity
+nodeselector
+pod affinity
+pod antiaffinity
+taint and toleration
+
+--------------
+
+how to mount efs ---
+
+ec2 --- ebs,efs, security groups , elb  , autoscaling , instance block store, key pair , public ip, private ip , elastic ip 
+
+s3 ---- storage classes life cycle management and policy , versioning
+
+vpc ---- subnet, route table , internet gateway , nat gateway , nat instance , vpc peering , vpc endpoint , nacl
+
+Iam ---- role , user , policy 
+
+lambda function ---- creation and execute , layers , triggers 
+
+sqs ---- queue , 
+
+sns ---- 
+
+ses --- email 
+
+eks --- cluster 
+
+ecs
+
+lambda ---- ec2 , s3 , sqs , sns 
+
+ecr --- elastic container registry
+
+ebs ---- elastic bean stalk
+
+
+-------------
+
+
+
+---------------------------
+
+devops tools 
+git ---- installation --- status add init commit config clone pull push fetch remote merge pull request cherry pick merge revert reset(--mixed --soft --hard modes) rebase reflog tag stash pop push .gitignore checkout rm diff log  file life cycle untracked staged in repo/committed modified 
+stages in git life cycle working directory staging area , git directory 
+maven ---- installation life cycle phases settings.xml integration with nexus/jfrog and sonarqube 
+jenkins --- 
+installation   
+projects 
+1.free style
+2. maven
+3.pipeline
+4.multi-branch
+Different parameters 
+String 
+Active-choice
+
+master and slave architecture 
+integration 
+maven 
+git 
+sonarqube 
+nexus 
+docker 
+ansible 
+kubernetes 
+Build the job using triggers 
+1.Scheduling cron job Periodically
+2.SCM poll github webhook
+
+
+docker --- installation --- docker components and dockerfile(COPY EMPDIR ENTRYPOINT CMD RUN ) 
+dockerbuild and docker container 
+docker compose 
+docker swarm 
+docker volumes 
+docker networking 
+Push Docker images to Docker hub (Public Registry)
+Push Docker Images to Elastic Container Registry (ECR)
+
+ansible --- installation ---- 
+ansible architecture 
+working of ansible 
+adhoc commands 
+copy v/s synchronize 
+modules playbook --- installation java maven tomcat 
+ansible inventory  dynamic inventory
+ansible valut 
+ansible users/roles 
+ansible tower 
+ansible galaxy
+ansible variables 
+ansible facts custom facts 
+ 
+kubernetes --- 
+kubernetes architecture
+master and node components 
+kubectl commands types of cluster creation (kubeadm, minikube , kops , eks )
+ 
+kubernetes objects 
+pod
+replication controller
+replica set 
+deployment 
+serivce ( node port cluster ip load balancer ) 
+namespace 
+limits 
+stateful set daemon set
+Configuration  : config map and secrets 
+volumes ( aws efs and nfs ) manual
+persistence volume
+persistence volume claim
+Pod and Node scheduling  : node selector pod affinity pod anit affinity node affinity taint and toleration 
+health checks ---- Configure Liveness, Readiness and Startup Probes
+Kubernetes Dashboard Setup
+Autoscaling ---- horizontal pod autoscaler ,vertical pod autoscaler , Cluster pod autoscaler
+Reloader for configmap and secrets 
+Integration with Jenkins 
+Kubernetes Deployment strategies --- blue green rollback update recreate canary 
+Monitoring Kubernetes with Grafana and Promotheus 
+Ingress Contoller with ---- load balancer and route53 
+
+
+
+terraform --- 
+installation 
+Different providers 
+writing terraform file to create/destroy ec2 resource create s3 bucket vpc creation 
+provisioner 
+local exec
+remote-exec provisioner , 
+file exec 
+resources 
+data sources meta arguments depends on 
+conditional and loops 
+dynamic blocks 
+functions 
+variables 
+output values 
+modules 
+remote state 
+remote backend with storage (s3) 
+locking with dynamo db 
+import existing resources workspaces 
+
+
+lambda ---- installation ---- start/stop ec2 instance trigger to get asynchronous data from sns sqs and insert to db/s3 
+promotheus and grafana ---- Monitor Spring boot application and kubernetes cluster
+
+-----------------------
+
+git commands
+aws cli commands for ec2 vpc s3 
+docker commands 
+terraform commands
+kubernetes command 
+ansible commands 
+
+
+Notepad
+Default directories
+Software installation .exe/msi/zip
+Advanced system settings setting environment variables
+Users admin/personal user
+Task Manager 
+Serivces.msc start and stop the software service 
+Bat files for automation scripts 
+
+-------------------------------
+
+Linux admin
+Google Cloud account 
+Docker hub account 
+Github account
+Slack.com account ( collabaration account )
+Mail server 
+Amazon aws account
+Automation tools Jenkins ansible terraform 
+Kubernetes cluster setup
+Ansible setup
+Machine configuration 
+jenkins machine 1 cpu 3.5 GB 
+Artifactory machine 2 cpu 7 GB memory
+Docker machine 2 cpu 4 GB memory 
+
