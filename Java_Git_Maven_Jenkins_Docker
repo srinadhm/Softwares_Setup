@@ -109,7 +109,11 @@ OS:           Linux 4.14.232-177.418.amzn2.x86_64 amd64
 
 5.Docker Installation
 
-(a)yum install docker -y 
+(a)yum install docker -y now currently not working in latest amazon linux versions 
+
+amazon-linux-extras install docker -y && service docker start 
+
+
 
 (b)docker --version
 Docker version 20.10.4, build d3cb89e
