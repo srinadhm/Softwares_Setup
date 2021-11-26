@@ -51,18 +51,170 @@ Compile and run the program
 8
 
 2.Ansible Installation
-1.Prerequisite is python
+
+Ansible is an it automation tool which can deploy software, configure system and orchestrate more advanced task
+
+Deploy software: deploy war file to tomcat using ansible
+Configure system: we can install java maven git jenkins tomcat sonarqube nexus docker kubernetes kafka terraform mysql postgresql grafana promotheus using ansible 
+Advanced task : download the jar/war file from nexus and copy jar file to server and run the jar file 
+
+Configuration management : 
+
+info includes exact versions and updating network address for all hardware devices
+ex: if we want to install tomcat or web server in all nodes it is not good to go to each and every server , install it manually ---- to avoid this we have to go for configuration management tools like ansible puppet chef salt stack
+
+
+how ansible works
+Controlling machine 
+master or control-node 
+
+multiple nodes 
+node-1 
+node-2
+node-3
+
+from master machine or controlling machine it will connect to the node and pushed programs called modules
+by using ssh
+
+then it will look for host inventory file and remove the code which is already executed
+
+
+Practical scenario 
+
+create 3 ec2 instances 
+ec2 server1--- controlling machine 
+ec2 server2,ec2 server3 ---- nodes 
+connect to instances and change the hostnames to avoid confusion
+
+
+
+hostnamectl set-hostname master-machine
+hostnamectl set-hostname node_machine2
+hostnamectl set-hostname node_machine1
+
+
+18.222.146.47 --- master machine
+172.31.83.20 --- node_machine1
+172.31.81.84 --- node_machine2
+
+Ansible setup 
+----------------
+1.First we will setup ssh connection between 3 servers .Generate ssh key on  master machine (ssh-keygen) public and private keys will be generated in /root/.ssh location) 
+
+[root@master-machine ~]# cd /root/.ssh/
+[root@master-machine .ssh]# ll
+total 12
+-rw------- 1 root root  549 Nov 26 02:08 authorized_keys
+-rw------- 1 root root 1675 Nov 26 02:17 id_rsa
+-rw-r--r-- 1 root root  401 Nov 26 02:17 id_rsa.pub
+
+id_rsa ---- private keys 
+id_rsa.pub ---- public keys 
+if we want to connect from one machine to another machine without prompting for password we need to copy public keys (id_rsa.pub) in node machine or server2 in /root/.ssh/authorized_keys location 
+
+
+
+2.copy ssh key on all the node machines 
+node_machine1 ----  172.31.83.20 
+node_machine2 ----  172.31.81.84
+
+[root@master-machine .ssh]# cat id_rsa.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDG+g6H73zV7OF4KCkAs4HM3+lFfqRORGClbbcj1ZwG1dWZCp1T9jwJFrUYeL4l5TDzJaG2DD2r3ciQa3cplQUDbm7IKz10haH1plGKrS/wwLhrIkFcL5TYdz8fQ18QHz4HwuNoGV2f6YQ+RigK3u4UozGfs11ZeLD+2zvmH3USuL0GqRCpoMVapo2OB7tDoRUfuzt/Tjpb/wU7xydeppsBgjfyT8x6XhkAfolwPJqfWfpXbZzKAk6uxgWji9f2EbNqEe7jv48wIMUuzr92mkCjgYq0d+DrydetyXtjm7iPMQdfasFJH4vtwYHEm1nG9Gp67FXtRyWZ+ywGOC7vUViB root@master-machine
+
+[root@node_machine1 ~]# cd /root/.ssh
+[root@node_machine1 .ssh]# ll
+total 4
+-rw------- 1 root root 549 Nov 26 02:08 authorized_keys
+[root@node_machine1 .ssh]# vi authorized_keys
+
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDG+g6H73zV7OF4KCkAs4HM3+lFfqRORGClbbcj1ZwG1dWZCp1T9jwJFrUYeL4l5TDzJaG2DD2r3ciQa3cplQUDbm7IKz10haH1plGKrS/wwLhrIkFcL5TYdz8fQ18QHz4HwuNoGV2f6YQ+RigK3u4UozGfs11ZeLD+2zvmH3USuL0GqRCpoMVapo2OB7tDoRUfuzt/Tjpb/wU7xydeppsBgjfyT8x6XhkAfolwPJqfWfpXbZzKAk6uxgWji9f2EbNqEe7jv48wIMUuzr92mkCjgYq0d+DrydetyXtjm7iPMQdfasFJH4vtwYHEm1nG9Gp67FXtRyWZ+ywGOC7vUViB root@master-machine
+
+[root@node_machine2 ~]# cd /root/.ssh
+[root@node_machine2 .ssh]# ll
+total 4
+-rw------- 1 root root 549 Nov 26 02:09 authorized_keys
+[root@node_machine2 .ssh]# vi authorized_keys
+
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDG+g6H73zV7OF4KCkAs4HM3+lFfqRORGClbbcj1ZwG1dWZCp1T9jwJFrUYeL4l5TDzJaG2DD2r3ciQa3cplQUDbm7IKz10haH1plGKrS/wwLhrIkFcL5TYdz8fQ18QHz4HwuNoGV2f6YQ+RigK3u4UozGfs11ZeLD+2zvmH3USuL0GqRCpoMVapo2OB7tDoRUfuzt/Tjpb/wU7xydeppsBgjfyT8x6XhkAfolwPJqfWfpXbZzKAk6uxgWji9f2EbNqEe7jv48wIMUuzr92mkCjgYq0d+DrydetyXtjm7iPMQdfasFJH4vtwYHEm1nG9Gp67FXtRyWZ+ywGOC7vUViB root@master-machine
+
+save changes and exit.
+
+3.after copying keys test the ssh connection from master machine
+
+ssh username@publicip or private ip 
+
+ssh root@172.31.32.201  --- node_machine1
+ssh root@172.31.45.218  --- node_machine2
+ssh root@172.31.83.20   ---- node_machine1
+ssh root@172.31.81.84   ----- node_machine2
+
+
+Once the connectio is establishes between 3 machines master and node, then we can do Ansible setup 
+
+4.We need to install ansible on the master machine no need to install on nodes, Install python on both master and node machines 
+
 yum install python -y
-2.Install Ansinle in amazon linux
+
 amazon-linux-extras install ansible2 -y
-3.Check ansible version after installation
-[root@ip-172-31-89-165 elasticsearch]# ansible --version
-ansible 2.9.23
+ 
+ansible --version
+ansible 2.9.20
   config file = /etc/ansible/ansible.cfg
   configured module search path = [u'/root/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
   ansible python module location = /usr/lib/python2.7/site-packages/ansible
   executable location = /bin/ansible
   python version = 2.7.18 (default, Jun 10 2021, 00:11:02) [GCC 7.3.1 20180712 (Red Hat 7.3.1-13)]
+
+5.made an node group entry in /etc/ansible/hosts in nothing but inventory file we need to location node machines ip address with valid group name
+
+
+[Workernodes]
+172.31.83.20
+172.31.81.84
+
+6.After adding group in ansible default inventory file check the connectivity on all node machines with your group name.
+
+This command will use Ansible’s built-in ping module to run a connectivity test on all nodes from your default inventory, 
+connecting as root. The ping module will test:
+
+if hosts are accessible;
+if you have valid SSH credentials;
+if hosts are able to run Ansible modules using Python.
+
+
+[root@master ~]# ansible -m ping Workernodes
+[WARNING]: Platform linux on host 172.31.89.255 is using the discovered Python interpreter at /usr/bin/python, but future installation of another Python interpreter
+could change this. See https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+172.31.89.255 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+
+[WARNING]: Platform linux on host 172.31.81.84 is using the discovered Python interpreter at /usr/bin/python, but future
+installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+172.31.81.84 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+[WARNING]: Platform linux on host 172.31.83.20 is using the discovered Python interpreter at /usr/bin/python, but future
+installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+172.31.83.20 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+
+
 
 3.ELK Setup (Prerequisite Java )
 
