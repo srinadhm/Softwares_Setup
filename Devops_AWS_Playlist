@@ -1,0 +1,243 @@
+Devops 7 am batch 
+------------------
+Introduction and installation of needed software_1
+Devops_Lifecycle vs waterfall vs Agile Methodology_2
+How to Create Ec2 Instance and connect to it with Mobaxterm_Putty_GIT Bash_3
+EBS & EFS & S3 & IAM_4
+Linux directory structure_5
+File_Permissions_ACL_UserManagement_6
+Linux Package management_Tomcat_Mongodb_SonarQube_Grafana_7
+Install and Change Tomcat and Jenkins port number & Install mongodb on rhel 8_8
+Setup ssh & rsync between two server's_9
+Nfs server setup on Amazon Linux 2_10
+Vpc peering between two regions on same account__11
+EFS_Python IDE_VisualStudio_12
+NFS Utils_13
+Linux Commands - awk,sed,cut_14
+Shell Scripting_15
+Setup Postgresql in Amazon Linux_16
+RDS_Postgresql_EC2 Connect_17
+Shell Script_Variables_Loops_Arrays_18
+Bash test Operators and IO Redirection_19
+Shell Script String Operations_Mysql Install in Amazon Linux_20
+Shell script with mysql backup and restore_21
+Git_Git flow_Branching Strategy_22
+Spring boot project using Maven_23
+Create Jenkins FreeStyle and Maven and  Pipeline with an Example_24 
+Maven Integration with SonarQube and Nexus_25 
+Code Analysis with Jenkins and Sonar integration_26 
+Jenkins CI with Nexus_28 
+Building your CI_CD Pipeline on AWS_29
+Job Description Discussion & Apache Kafka Setup, Gradle,Terraform Installation_30
+Deploy War file to Tomcat server_31
+what is ansible and How it works_32
+Ansible Practical_33
+EC2_Secrets Manager_Ansible_Terraform_34
+Create Secrets Manager using terraform_35
+Create ec2 instance using Ansible Playbook and Terraform script_36
+Create Mutiple Instances and s3 bucket using Terraform Script_37
+Create Ami manually and using Hashicorp Packer_38 *******
+Spring Boot - Spring Data JPA - MySQL Example_39
+Maven_Java_40
+Jenkins_CI_CD_Ansible_41
+Terraform s3 bucket java-maven-gradle-sonaqube-on-amazon-linux-2_42
+create-python-lambda-to-stop-start-ec2-instance_43
+Lambda_s3_IAM_44
+Lambda_s3_mysql_python_45
+Lambda_rds_ec2_46
+Docker_file_build_push_pull_container_run_48
+Docker_Intro and Dockerize Java app
+Jenkins_Integration_Docker_49
+Docker_Jenkins_CI_groovy_50
+Setup Jenkins master_linux slave_linux machine_51  ********
+Setup Jenkins master_linux slave_windows machine_52 ******
+Dockerize_python_nodejs app and Docker compose_53
+Dockerize_dotnet_app_54
+Dockerize_Angularjs and Reactjs apps_55
+docker_volumes_56
+Docker_Networking_Swarm_57 *******
+Kubernetes_Intro_58
+Kubernetes_Cluster_59
+Kubernetes_ReplicationController vs Replica Sets_60
+Kubernetes_Volumes_61
+Kubernetes_kops vs eks_62
+Kubernetes_Jenkins_cicd_63
+Kubernetes_Taint and toleration_64
+Kubernetes_pod_autoscaler_65
+Monitoring and Logging_66
+Kubernetes_pod_clusterautoscaler_67
+Kubernetes_Deploy Application in Production env_68
+Jenkins_CD_Kubernetes_69
+Kubernetes_Ingress_70
+Kubernetes_Objects_pod_rc_rs_deployment_71
+Kubernetes_Interview_questions_72
+
+----------------------------------------------------------------
+
+For databases R family
+For gaming/video games and high performance   C4/C5
+
+https://aws.amazon.com/ec2/instance-types/
+
+UPDATE mysql.user SET Password = PASSWORD('MyNewStrongabcd') WHERE User = 'root';
+FLUSH PRIVILEGES;
+
+
+For general M4 and T2
+
+Devops & Aws 8 am batch 
+-----------------------
+
+Devops Introduction
+Create windows server and linux server and connecting using git bash and mobaxterm
+Ec2 linux server directory structure and basic commands ll curl wget
+Setup java mobaxterm winscp visual studio code and mysql workbench and ec2 instance creation
+User and Group administration file permissions and chown chmod setfacl getfacl
+Package Management yum and rpm
+Package Management setup mongodb
+Ssh and Rsync practical
+Download multiple versions of java and setup path using alternatives
+Setup java jenkins maven gradle tomcat sonarqube in ubuntu machine
+Install mysql and connect using mysql connector
+Install postgresql using cli and aws rds connect using mysql connector
+Setup postgresql
+Install Nexux 3 And Jfrog On Amazon Linux2
+Setup maven gradle and sonarqube
+Setup elastic search kibana promotheus and grafana
+Message Broker Spring boot ActiveMq Integration
+Message Broker Spring boot Kafka integration
+Message Broker Spring boot rabbitmq integration and Amazon MQ
+Git Introduction and git commands global config add commit push pull *****
+Git_Branching_Strategy_26
+Git_Branching_Strategy1_27  ******
+Git commands revert reset fetch pull ******
+Git commands rebase reset soft hard  and revert *****
+Git commands merge clean diff ******
+Git commands cherry pick tags ******
+Spring boot integration with maven and mysql mysql database backup and restore
+Different ways to execute shell script arrays and loops
+Shell script introduction types of shells and operators
+Shell script operators and file operations
+Shell script input and output redirection
+Ssh Practical using Shell script
+Setup maven and sonarqube get sonar report using shell script
+Setup maven and nexus push artifacts to nexus with manual and get artifacts from nexus using shell script
+Jenkins integration with git maven different projects freestyle maven pipeline multibranch  *************************
+Jenkins scripted and declarative pipeline ***********************
+Scripted pipeline with string and active choice parameter ******************
+Grrovy Script Explanation get list of branches *****************
+Jenkins pipeline integration with sonarqube *****************
+Sonarqube integration with postgres and jenkins pipeline
+setup sonatype nexus and push artifacts to nexus through jenkins pipeline *******************
+Jenkins Master and Slave setup
+Ansible introduction master slave inventory file
+Ansible adhoc commands
+Ansible Practical install java git download jar maven repo passing values using variables and os dependent tasks
+Ansible Practical install tomcat and run as a service
+Ansible Practical install postgresql connect to database
+Ansible Practical create ec2 instance and terminate Terraform Practical create ec2 instance
+Ansible Practical ansible vault and aws secret manager
+Lambda function intro practical start and stop ec2 instances scheduling lambda function under cloud watch
+Connect_Database_LambdaLayers
+Terraform Practical and start stop ec2 instance by uploading to s3 bucket
+Terraform Practical create lambda function and execute
+Terraform practical with ansible
+July 17 Class 54 - Docker & Kubernetes
+July 17 Class 55 - Docker & Kubernetes
+July 18 Class 56 - Docker & Kubernetes
+July 18 Class 57 - Docker & Kubernetes
+July 18 Class 58 - Docker & Kubernetes
+
+---------------------------------------------
+
+Devops and Aws 
+-------------------
+AWS_Windows_Instance_creation_connect_withpassword_connect_losing_pemfile_linux_directory_structure
+Copy_files_ssh_scp_rsync
+Linux_fileoperations_usermanagement_awscli_toautomateawsservices
+Package Management rpm and debian for redhat and ubuntu
+Software_Installations_java_tomcat_sonarqube_postgresql
+Setup maven gradle sonarqube and elastic search
+Setup Java Jenkins Nexus Elastic Search
+Ubuntu_Nexus_Elasticsearch_installation
+ElasticSearch_Kibana_setup_practicalscenarios
+Nosql_Mongodb_Cassandra_Dynamodb
+Shellscript_Mysqlbackup
+Git basics
+Git reset command
+Git_Merge_Cherrypick
+Git_Terraform_Integration
+Maven Integration with Sonarqube
+Gradle_Integration with Sonarqube
+Manual CI process with java maven sonarqube nexus
+Groovy_Installation_practical_scenarios
+Jenkins_Scripted_Pipeline_string parameter_Groovy
+Groovy_Select_releases_activechoice_parameter
+Jenkins_SonarQube
+Sonarqube_Setup_Integration_Jenkins
+Jenkins_Send_build_email_notification_Amazon SES
+Trigger_Jenkins_Job
+Jenkins Integration with git and webhooks
+Nexus_Setup_Jenkins_CI_Pipeline_pushartifacts_nexus
+Jenkins CI with load balancer
+Jenkins_CI_Ansible_CD
+Jenkins_CI_CD
+CI CD with Jenkins Docker and Ansible
+Jenkins_active_choiceparameter_Groovy_Postgresqldb_connect_list_values_indropdown
+Jenkins Integration with gradle and amazon ecr
+Jenkins_Nexus_Integration
+Upload Artifacts to Nexus using Jenkins pipeline
+Jenkins_Groovy_Script_fetching_docker_images
+Jenkins_pipeline_pushing_images_dockerhub_aws-ecr
+Ansible_Adhoccommands
+Ansible_Download_Java_Tomcat
+Pull Artifacts from nexus and Deploy using Ansible Playbook
+Ansible_EC2_Creation_Terraform_EC2_Creation
+Ansible_Install_Java_Ubuntu_Redhat_Download_Jar_Maven
+Ansible_Secrets_AWS_SecretManager
+Ansible_Terraform
+Calling http url or github url using Python scripting
+Springboot_httpmethods_pythonscript
+Mysql_Springboot_crudoperations_pythonscript
+Python Crud Operation with Mysql Database
+Python_Datatypes_loops_list_tuple_dictionary
+Python_Installation_Variables
+Python_PycharmIDE_practicalscenarios
+Terraform
+Terraform_lookup_createinfra_destroyinfra
+Terraform_resources_Ansible_modules_createec2_instance_using_ansible
+EBS_Terraform
+Cloudformation_Stack_K8s_Helmchart
+Lambda_Function_Calling_Manually_Schedule_CloudWatch
+Lambda_Serverless_computing_Fucationasacode_SNS_Lambda_RDS
+Lambda_Function_Terraform
+Dockerize_Java
+Docker_Java_Dockerhub_ECR
+Dockerize_Python_Nodejs
+Dockerize_Python_Nodejs_Ansible_Docker_Integration
+Dockerize_Dotnetaspcore
+Docker_Angularjs_Reactjs
+Docker_Volumes
+Docker_Networking_Swarm
+Docker_Compose and Swarm
+Kubernetes_Intro
+Kubernetes_eks_cluster_setup
+Kubernetes_eks cluster_with_config file
+Eks_cluster_customization
+Kubernetes_Cluster
+Kubernetes_kubeadm_cluster_setup
+Kubernetes_RC_RS_Deployment_Nginx_LoadBalancer
+Kubernetes concepts deployment statefulset
+Kubernetes concepts pv pvc
+Spring boot intregration with postgresdb and deploy on kubernetes cluster
+Kubernetes concepts configmap secrets
+Kubernetes cluster creation using Terrafrom and deployment and accessing using service
+Asg with Custom AMI_ALB
+Asg with Custom AMI_ALB_2
+Deployment Strategies_Kubernetes
+Deploy Application in Production env Kubernetes
+VPC and Nat Gateway
+VPC Peering
+
+
+
